@@ -1,0 +1,1269 @@
+/* ── QUOTATION MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 16px;
+  padding: 30px 24px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  max-height: 92vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  animation: modalIn 0.3s ease;
+  touch-action: pan-y;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--chrome);
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--gold);
+}
+
+.modal-card h3 {
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.modal-card .modal-sub {
+  font-size: 13px;
+  color: var(--chrome);
+  margin-bottom: 24px;
+}
+
+.modal-card input,
+.modal-card select {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 8px;
+  color: var(--text-white);
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.modal-card input::placeholder {
+  color: var(--text-muted);
+}
+
+.modal-card input:focus,
+.modal-card select:focus {
+  border-color: var(--gold);
+}
+
+.q-service-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--chrome);
+  margin-top: 6px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.q-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.q-service-pill {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 10px 6px;
+  color: #1E293B;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', -apple-system, sans-serif;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.q-service-pill:hover {
+  border-color: #0d3a94;
+  background: #F1F5F9;
+  color: #0d3a94;
+}
+
+.q-service-pill.active {
+  background: #0d3a94;
+  border-color: #0d3a94;
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(13, 58, 148, 0.35);
+}
+
+@media (max-width: 480px) {
+  .q-service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .q-service-pill {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+}
+
+.modal-card select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #0f172a;
+  color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+.modal-card select option {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.modal-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--gold), #8B6914);
+  color: #000;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s, transform 0.2s;
+  margin-top: 4px;
+}
+
+.modal-submit:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.modal-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 14px;
+}
+
+/* ── QUOTATION RESULT PAGE ── */
+.result-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2001;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px 16px 40px 16px;
+  box-sizing: border-box;
+}
+
+.result-page.active {
+  display: block;
+}
+
+.result-wrapper {
+  max-width: 794px;
+  width: 100%;
+  margin: 0 auto;
+  animation: modalIn 0.35s ease;
+  box-sizing: border-box;
+}
+
+.result-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  transition: background 0.2s, color 0.2s;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.result-close:hover {
+  background: rgba(201, 168, 76, 0.25);
+  color: var(--gold);
+}
+
+.q-doc {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #000000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 794px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.q-doc-header {
+  background: #0d3a94;
+  /* Dark blue background */
+  color: #ffffff;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-bottom: 2px solid #000000;
+}
+
+.q-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 4px;
+  font-weight: 500;
+}
+
+.q-header-top span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.q-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.q-header-logo-left {
+  flex-shrink: 0;
+  background: #ffffff;
+  border-radius: 6px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #1b4332;
+  padding: 3px 6px;
+}
+
+.q-header-logo-right {
+  flex-shrink: 0;
+  background: #ffffff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #1b4332;
+  padding: 3px;
+}
+
+.q-header-logo-left img,
+.q-header-logo-right img,
+.q-header-logo-left svg,
+.q-header-logo-right svg {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.q-header-title-center {
+  text-align: center;
+  flex: 1;
+  padding: 0 10px;
+}
+
+.q-header-title-center h1 {
+  font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFE600;
+  /* Yellow text */
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+}
+
+.q-header-title-center p {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  margin: 2px 0 0 0;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.q-invoice-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  margin: 14px 0 6px 0;
+  color: #000000;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.q-invoice-title-line {
+  height: 1px;
+  background: #000000;
+  width: 90%;
+  margin: 0 auto 12px auto;
+}
+
+.q-doc-body {
+  padding: 12px 24px;
+}
+
+.q-vendor-meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.q-vendor-details {
+  flex: 1;
+  color: #000000;
+}
+
+.q-vendor-details strong {
+  font-weight: 700;
+  color: #0d3a94;
+}
+
+.q-invoice-meta {
+  text-align: right;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.q-invoice-meta p {
+  margin: 0 0 2px 0;
+}
+
+.q-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #000000;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 2px;
+  text-transform: capitalize;
+}
+
+.q-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+}
+
+.q-details-table td {
+  padding: 3px 0;
+  font-size: 12px;
+  vertical-align: top;
+  color: #000000;
+}
+
+.q-details-table td.q-label-cell {
+  font-weight: 700;
+  width: 75px;
+}
+
+.q-details-table td.q-value-cell {
+  color: #000000;
+}
+
+.q-invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 4px 0;
+  font-size: 11px;
+}
+
+.q-invoice-table th,
+.q-invoice-table td {
+  border: 1px solid #000000;
+  padding: 6px;
+  color: #000000;
+}
+
+.q-invoice-table th {
+  background: #f5f5f5;
+  font-weight: 700;
+  text-align: center;
+}
+
+.q-invoice-table td {
+  vertical-align: middle;
+}
+
+.q-tax-note {
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+  margin-top: 2px;
+  margin-bottom: 12px;
+  color: #000000;
+}
+
+.q-terms-section {
+  margin-top: 14px;
+  font-size: 10px;
+  color: #000000;
+}
+
+.q-terms-section h5 {
+  font-size: 11px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.q-terms-section ul {
+  margin: 0;
+  padding-left: 14px;
+  list-style-type: disc;
+}
+
+.q-terms-section li {
+  margin-bottom: 3px;
+  line-height: 1.3;
+  color: #000000;
+}
+
+.q-doc-footer {
+  display: none;
+}
+
+.q-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.q-actions button {
+  flex: 1;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-download {
+  background: var(--gold);
+  color: #000;
+  font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+}
+
+.btn-download:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-pdf-dl {
+  background: var(--gold);
+  color: #000;
+}
+
+.btn-pdf-dl:hover {
+  background: var(--gold-light);
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+.btn-excel-dl {
+  background: #107c41;
+  color: #ffffff;
+}
+
+.btn-excel-dl:hover {
+  background: #0e6b37;
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+.btn-appointment {
+  background: #25D366;
+  color: #fff;
+}
+
+.btn-appointment:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.est-invoice-wrapper {
+  animation: fadeIn 0.4s ease;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure the invoice document itself doesn't force horizontal scroll */
+#estPrintArea {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.est-doc-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  max-width: 794px;
+  margin: 28px auto 0 auto;
+  flex-wrap: wrap;
+}
+
+.est-doc-actions button {
+  flex: 1;
+  max-width: 320px;
+  min-width: min(220px, 100%);
+  padding: 16px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s, opacity 0.2s, background 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+@media(max-width:600px) {
+  .est-doc-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 0 12px !important;
+  }
+
+  .est-doc-actions button {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+}
+
+@media(max-width:600px) {
+  .q-actions {
+    flex-direction: column;
+  }
+
+  .q-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+
+
+
+@media(max-width:840px) {
+  .result-page {
+    padding: 16px 10px 36px 10px;
+  }
+
+  .result-wrapper {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .q-doc {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+  }
+
+  #estPrintArea {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    flex-shrink: 1 !important;
+    box-sizing: border-box;
+  }
+
+/* Mobile Totals Box (Hidden on desktop, shown on mobile) */
+.q-mobile-totals-box,
+.est-mobile-totals-box {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .q-desktop-summary-row,
+  .est-desktop-summary-row {
+    display: none !important;
+  }
+
+  .q-mobile-totals-box,
+  .est-mobile-totals-box {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #f4f7fa !important;
+    border: 1px solid #1b4332 !important;
+    border-radius: 8px !important;
+    padding: 8px 10px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    gap: 4px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .q-total-item,
+  .est-total-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+  }
+
+  .q-total-label,
+  .est-total-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .q-total-val,
+  .est-total-val {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #000;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .q-total-val.tax,
+  .est-total-val.tax {
+    color: #0d3b8e;
+  }
+
+  .q-total-val.total,
+  .est-total-val.total {
+    color: #1b4332;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .q-total-divider,
+  .est-total-divider {
+    width: 1px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+  }
+
+  .q-doc-header {
+    padding: 8px 10px;
+    gap: 4px;
+  }
+
+  .q-header-top {
+    font-size: 8.5px;
+    padding-bottom: 3px;
+    gap: 4px;
+  }
+
+  .q-header-logo-left,
+  .q-header-logo-right {
+    width: 38px !important;
+    height: 38px !important;
+    flex-shrink: 0;
+  }
+
+  .q-header-logo-left svg,
+  .q-header-logo-right svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .q-header-title-center h1 {
+    font-size: 15px !important;
+    letter-spacing: 0px !important;
+    line-height: 1.2 !important;
+  }
+
+  .q-header-title-center p {
+    font-size: 8px !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .q-invoice-title {
+    font-size: 13px;
+    margin: 8px 0 3px 0;
+  }
+
+  .q-invoice-title-line {
+    width: 92%;
+    margin: 0 auto 8px auto;
+  }
+
+  .q-doc-body {
+    padding: 8px 12px;
+  }
+
+  .q-vendor-meta-row {
+    font-size: 10px;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+
+  .q-vendor-details {
+    font-size: 10px;
+  }
+
+  .q-invoice-meta {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .q-section-title {
+    font-size: 10.5px;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    padding-bottom: 1px;
+  }
+
+  .q-details-table {
+    margin-bottom: 6px;
+  }
+
+  .q-details-table td {
+    padding: 2px 0;
+    font-size: 10px;
+  }
+
+  .q-details-table td.q-label-cell {
+    width: 55px;
+    font-weight: 700;
+  }
+
+  .q-invoice-table {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 9.5px;
+    margin: 8px 0 3px 0;
+  }
+
+  .q-invoice-table th,
+  .q-invoice-table td {
+    padding: 4px 3px !important;
+    font-size: 9.5px !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.2;
+  }
+
+  .q-tax-note {
+    font-size: 9px;
+    margin-top: 2px;
+    margin-bottom: 6px;
+  }
+
+  .q-terms-section {
+    margin-top: 8px;
+    font-size: 9px;
+  }
+
+  .q-terms-section h5 {
+    font-size: 9.5px;
+    margin-bottom: 2px;
+  }
+
+  .q-terms-section ul {
+    padding-left: 14px;
+  }
+
+  .q-terms-section li {
+    margin-bottom: 2px;
+    line-height: 1.25;
+  }
+
+  .q-actions {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .q-actions button {
+    padding: 12px;
+    font-size: 13px;
+    width: 100%;
+  }
+
+  /* Ensure invoice tables don't overflow */
+  .q-doc table {
+    table-layout: fixed;
+    word-break: break-word;
+  }
+}
+
+/* Modal card — tablet polish */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .modal-card {
+    padding: 28px 22px;
+    max-width: 100%;
+    max-height: calc(100vh - 100px);
+  }
+
+  .modal-card h3 {
+    font-size: 20px;
+    padding-right: 30px;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .result-page {
+    padding: 10px 6px 28px 6px;
+  }
+
+  .q-doc-header {
+    padding: 6px 8px;
+  }
+
+  .q-header-top {
+    font-size: 8px;
+  }
+
+  .q-header-logo-left,
+  .q-header-logo-right {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .q-header-logo-left svg,
+  .q-header-logo-right svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .q-header-title-center h1 {
+    font-size: 12.5px !important;
+  }
+
+  .q-header-title-center p {
+    font-size: 7px !important;
+  }
+
+  .q-invoice-title {
+    font-size: 11.5px;
+    margin: 6px 0 2px 0;
+  }
+
+  .q-doc-body {
+    padding: 6px 8px;
+  }
+
+  .q-vendor-meta-row {
+    font-size: 9px;
+  }
+
+  .q-vendor-details {
+    font-size: 8.5px;
+  }
+
+  .q-invoice-meta {
+    font-size: 8.5px;
+  }
+
+  .q-details-table td {
+    font-size: 8.5px;
+  }
+
+  .q-details-table td.q-label-cell {
+    width: 48px;
+  }
+
+  .q-invoice-table {
+    font-size: 8.5px;
+  }
+
+  .q-invoice-table th,
+  .q-invoice-table td {
+    padding: 3px 2px !important;
+    font-size: 8.5px !important;
+  }
+
+  .q-tax-note {
+    font-size: 8px;
+  }
+
+  .q-terms-section {
+    font-size: 8px;
+  }
+
+  .q-terms-section h5 {
+    font-size: 8.5px;
+  }
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body>* {
+    display: none !important;
+  }
+
+  #resultPage {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  .result-wrapper {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .result-close,
+  .q-actions {
+    display: none !important;
+  }
+
+  .q-doc {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .q-doc-header {
+    background: #0d3a94 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .q-amount-blank {
+    border-bottom: 2px dashed #999 !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   QUOTATION DESKTOP & ULTRAWIDE RESPONSIVE BREAKPOINTS
+   ══════════════════════════════════════════════════════════ */
+
+@media (min-width: 1280px) {
+  .result-wrapper {
+    max-width: 860px;
+    margin: 40px auto;
+  }
+
+  .modal-card {
+    max-width: 480px;
+    padding: 40px;
+  }
+
+  .q-doc {
+    margin: 0 auto !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .result-wrapper {
+    max-width: 900px;
+    margin: 48px auto;
+  }
+
+  .modal-card {
+    max-width: 500px;
+    padding: 44px;
+    border-radius: 20px;
+  }
+
+  .modal-card h3 {
+    font-size: 24px;
+  }
+
+  .modal-card .modal-sub {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .result-wrapper {
+    max-width: 960px;
+    margin: 56px auto;
+  }
+
+  .modal-card {
+    max-width: 520px;
+    padding: 48px;
+    border-radius: 22px;
+  }
+
+  .modal-card h3 {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .result-wrapper {
+    max-width: 1040px;
+    margin: 64px auto;
+  }
+
+  .modal-card {
+    max-width: 560px;
+    padding: 52px;
+    border-radius: 24px;
+  }
+}
+
+/* ── Cross-Device Laptop & Mobile Modal Optimization ── */
+@media (max-height: 720px) {
+  .modal-card {
+    max-height: 88vh;
+    padding: 20px 24px;
+  }
+
+  .modal-card h3 {
+    margin-bottom: 4px;
+  }
+
+  .modal-card .modal-sub {
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-card {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .q-service-grid {
+    gap: 6px;
+  }
+
+  .q-service-pill {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ── Estimation Wizard & Document Mobile Responsiveness ── */
+@media (max-width: 600px) {
+  /* Estimation Step Indicator Bar */
+  .est-steps, .step-pills {
+    display: flex !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .est-steps::-webkit-scrollbar,
+  .step-pills::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .step-pill {
+    flex: 0 0 auto !important;
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+  }
+
+  /* Grid of selection tiles on Estimation steps */
+  .tile-grid, .space-grid, .finish-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .tile-card {
+    padding: 14px !important;
+    min-height: 48px !important;
+  }
+
+  /* Results Actions & Buttons */
+  .results-actions, .est-actions, .q-actions, .est-doc-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .btn-est-download,
+  .btn-est-whatsapp,
+  .btn-est-restart,
+  .btn-download,
+  .btn-appointment,
+  .btn-pdf-dl,
+  .btn-excel-dl {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px 18px !important;
+    font-size: 14px !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+  }
+
+  /* Horizontal Mobile Totals Box for Quotation & Estimation Invoices */
+  .q-mobile-totals-box, .est-mobile-totals-box {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    background: #f4f7fa !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    padding: 12px 8px !important;
+    margin: 16px 0 !important;
+  }
+
+  .q-total-item, .est-total-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .q-total-label, .est-total-label {
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+  }
+
+  .q-total-val, .est-total-val {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+    margin-top: 2px !important;
+  }
+
+  .q-total-val.total, .est-total-val.total {
+    color: #1b4332 !important;
+    font-size: 15px !important;
+  }
+
+  .q-total-divider, .est-total-divider {
+    width: 1px !important;
+    height: 28px !important;
+    background: #cbd5e1 !important;
+  }
+}

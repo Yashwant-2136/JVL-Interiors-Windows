@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>JVL Interiors & Windows — Quotation Invoice</title>
+  <meta name="description" content="Your JVL Interiors & Windows quotation invoice." />
+  <meta name="theme-color" content="#C9A84C" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <style>
+    /* ═══════════════════════════════════════════════
+       STANDALONE INVOICE PAGE — MOBILE-FIRST CSS
+       ═══════════════════════════════════════════════ */
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f5f5f0;
+      color: #000;
+      line-height: 1.6;
+      padding: 12px;
+      padding-top: max(12px, env(safe-area-inset-top, 0px));
+      padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+      padding-left: max(12px, env(safe-area-inset-left, 0px));
+      padding-right: max(12px, env(safe-area-inset-right, 0px));
+      min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Container ── */
+    .invoice-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Page Title Bar ── */
+    .page-title-bar {
+      text-align: center;
+      margin-bottom: 16px;
+      padding: 12px 8px;
+      background: #0d3a94;
+      border-radius: 8px;
+      color: #fff;
+    }
+
+    .page-title-bar h2 {
+      font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #FFE600;
+      margin: 0;
+    }
+
+    .page-title-bar p {
+      font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* ── Invoice Document ── */
+    .q-doc {
+      background: #FFFFFF;
+      border: 1px solid #000000;
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #000000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border-radius: 6px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* ── Header ── */
+    .q-doc-header {
+      background: #0d3a94;
+      color: #ffffff;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-bottom: 2px solid #000000;
+    }
+
+    .q-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+      padding-bottom: 3px;
+      font-weight: 500;
+    }
+
+    .q-header-top span {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .q-header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2px;
+    }
+
+    .q-header-logo-left {
+      flex-shrink: 0;
+      background: #ffffff;
+      border-radius: 6px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid #1b4332;
+      padding: 3px 6px;
+    }
+
+    .q-header-logo-right {
+      flex-shrink: 0;
+      background: #ffffff;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid #1b4332;
+      padding: 2px;
+    }
+
+    .q-header-logo-left img,
+    .q-header-logo-right img,
+    .q-header-logo-left svg,
+    .q-header-logo-right svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .q-header-title-center {
+      text-align: center;
+      flex: 1;
+      padding: 0 6px;
+    }
+
+    .q-header-title-center h1 {
+      font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #FFE600;
+      margin: 0;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      text-shadow: 1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+    }
+
+    .q-header-title-center p {
+      font-size: 7px;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin: 2px 0 0 0;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* ── Invoice Title ── */
+    .q-invoice-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-align: center;
+      margin: 8px 0 3px 0;
+      color: #000000;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .q-invoice-title-line {
+      height: 1px;
+      background: #000000;
+      width: 92%;
+      margin: 0 auto 8px auto;
+    }
+
+    /* ── Body ── */
+    .q-doc-body {
+      padding: 6px 8px;
+    }
+
+    .q-vendor-meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 9px;
+      line-height: 1.35;
+      gap: 6px;
+    }
+
+    .q-vendor-details {
+      flex: 1;
+      color: #000000;
+      font-size: 8.5px;
+    }
+
+    .q-vendor-details strong {
+      font-weight: 700;
+      color: #0d3a94;
+    }
+
+    .q-invoice-meta {
+      text-align: right;
+      color: #000000;
+      white-space: nowrap;
+      font-size: 8.5px;
+    }
+
+    .q-invoice-meta p {
+      margin: 0 0 2px 0;
+    }
+
+    /* ── Section Titles ── */
+    .q-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #000000;
+      margin-top: 8px;
+      margin-bottom: 3px;
+      border-bottom: 1px solid #000000;
+      padding-bottom: 1px;
+      text-transform: capitalize;
+    }
+
+    /* ── Details Table ── */
+    .q-details-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 6px;
+    }
+
+    .q-details-table td {
+      padding: 2px 0;
+      font-size: 8.5px;
+      vertical-align: top;
+      color: #000000;
+    }
+
+    .q-details-table td.q-label-cell {
+      font-weight: 700;
+      width: 48px;
+    }
+
+    .q-details-table td.q-value-cell {
+      color: #000000;
+    }
+
+    /* ── Invoice Table ── */
+    .q-table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .q-invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 3px 0;
+      font-size: 8.5px;
+      table-layout: fixed;
+    }
+
+    .q-invoice-table th,
+    .q-invoice-table td {
+      border: 1px solid #000000;
+      padding: 3px 2px;
+      color: #000000;
+      font-size: 8.5px;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.2;
+    }
+
+    .q-invoice-table th {
+      background: #f5f5f5;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .q-invoice-table td {
+      vertical-align: middle;
+    }
+
+    /* ── Tax Note ── */
+    .q-tax-note {
+      font-size: 8px;
+      font-weight: 700;
+      text-align: right;
+      margin-top: 2px;
+      margin-bottom: 6px;
+      color: #000000;
+    }
+
+    /* ── Terms ── */
+    .q-terms-section {
+      margin-top: 8px;
+      font-size: 8px;
+      color: #000000;
+    }
+
+    .q-terms-section h5 {
+      font-size: 8.5px;
+      font-weight: 700;
+      margin: 0 0 2px 0;
+      text-transform: uppercase;
+      color: #000000;
+    }
+
+    .q-terms-section ul {
+      margin: 0;
+      padding-left: 14px;
+      list-style-type: disc;
+    }
+
+    .q-terms-section li {
+      margin-bottom: 2px;
+      line-height: 1.25;
+      color: #000000;
+    }
+
+    /* ── Action Buttons ── */
+    .q-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .q-actions button {
+      width: 100%;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-download {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-download:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .btn-appointment {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-appointment:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Totals Box (Hidden on desktop, shown on mobile) */
+    .q-mobile-totals-box {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 6px;
+      }
+
+      .invoice-container {
+        max-width: 100%;
+      }
+
+      .q-doc-body {
+        padding: 10px 10px;
+      }
+
+      .q-invoice-table {
+        font-size: 10px;
+      }
+
+      .q-invoice-table th,
+      .q-invoice-table td {
+        padding: 5px 4px;
+      }
+
+      .q-desktop-summary-row {
+        display: none !important;
+      }
+
+      .q-mobile-totals-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background: #f4f7fa;
+        border: 1px solid #1b4332;
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        gap: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .q-total-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+      }
+
+      .q-total-label {
+        font-size: 8.5px;
+        font-weight: 700;
+        color: #444;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+      }
+
+      .q-total-val {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #000;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+
+      .q-total-val.tax {
+        color: #0d3b8e;
+      }
+
+      .q-total-val.total {
+        color: #1b4332;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .q-total-divider {
+        width: 1px;
+        height: 24px;
+        background-color: rgba(0, 0, 0, 0.15);
+        flex-shrink: 0;
+      }
+    }
+
+    /* ═══ RESPONSIVE: Tablet (600px+) ═══ */
+    @media (min-width: 600px) {
+      body {
+        padding: 24px;
+      }
+
+      .invoice-container {
+        max-width: 680px;
+      }
+
+      .q-doc-header {
+        padding: 10px 16px;
+        gap: 6px;
+      }
+
+      .q-header-top {
+        font-size: 11px;
+        padding-bottom: 4px;
+      }
+
+      .q-header-logo-left,
+      .q-header-logo-right {
+        width: 48px;
+        height: 48px;
+      }
+
+      .q-header-logo-left svg,
+      .q-header-logo-right svg {
+        width: 38px;
+        height: 38px;
+      }
+
+      .q-header-title-center h1 {
+        font-size: 20px;
+        letter-spacing: 0.5px;
+      }
+
+      .q-header-title-center p {
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+
+      .q-invoice-title {
+        font-size: 14px;
+        margin: 12px 0 5px 0;
+      }
+
+      .q-doc-body {
+        padding: 12px 24px;
+      }
+
+      .q-vendor-meta-row {
+        font-size: 12px;
+        margin-bottom: 14px;
+      }
+
+      .q-vendor-details {
+        font-size: 12px;
+      }
+
+      .q-invoice-meta {
+        font-size: 12px;
+      }
+
+      .q-section-title {
+        font-size: 12px;
+        margin-top: 14px;
+        margin-bottom: 4px;
+      }
+
+      .q-details-table td {
+        padding: 3px 0;
+        font-size: 12px;
+      }
+
+      .q-details-table td.q-label-cell {
+        width: 75px;
+      }
+
+      .q-invoice-table {
+        font-size: 11px;
+        margin: 12px 0 4px 0;
+      }
+
+      .q-invoice-table th,
+      .q-invoice-table td {
+        padding: 6px;
+        font-size: 11px;
+      }
+
+      .q-tax-note {
+        font-size: 10px;
+        margin-bottom: 12px;
+      }
+
+      .q-terms-section {
+        margin-top: 14px;
+        font-size: 10px;
+      }
+
+      .q-terms-section h5 {
+        font-size: 11px;
+      }
+
+      .q-actions {
+        flex-direction: row;
+        gap: 14px;
+      }
+
+      .q-actions button {
+        flex: 1;
+        padding: 16px;
+      }
+
+      .page-title-bar h2 {
+        font-size: 20px;
+      }
+
+      .page-title-bar p {
+        font-size: 12px;
+      }
+    }
+
+    /* ═══ RESPONSIVE: Desktop (840px+) ═══ */
+    @media (min-width: 840px) {
+      body {
+        padding: 32px;
+      }
+
+      .invoice-container {
+        max-width: 794px;
+      }
+
+      .q-doc-header {
+        padding: 10px 16px;
+      }
+
+      .q-header-logo-left,
+      .q-header-logo-right {
+        width: 58px;
+        height: 58px;
+      }
+
+      .q-header-logo-left svg,
+      .q-header-logo-right svg {
+        width: 48px;
+        height: 48px;
+      }
+
+      .q-header-title-center h1 {
+        font-size: 24px;
+      }
+
+      .q-header-title-center p {
+        font-size: 10px;
+      }
+
+      .q-invoice-title {
+        font-size: 16px;
+        margin: 14px 0 6px 0;
+      }
+
+      .q-invoice-title-line {
+        width: 90%;
+        margin: 0 auto 12px auto;
+      }
+
+      .page-title-bar {
+        padding: 16px;
+        border-radius: 10px;
+      }
+
+      .page-title-bar h2 {
+        font-size: 22px;
+      }
+    }
+
+    /* ═══ PRINT ═══ */
+    @media print {
+      @page {
+        margin: 0;
+        size: A4 portrait;
+      }
+
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+      }
+
+      body * {
+        visibility: hidden !important;
+      }
+
+      #qDoc,
+      #qDoc * {
+        visibility: visible !important;
+      }
+
+      #qDoc {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #ffffff !important;
+      }
+
+      .q-doc-header {
+        background: #0d3a94 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .page-title-bar,
+      .q-actions,
+      .q-actions *,
+      .btn-download,
+      .btn-appointment,
+      .error-state {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
+        opacity: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container" id="invoiceContainer">
+    <!-- Title bar (hidden in print) -->
+    <div class="page-title-bar">
+      <h2>JVL Interiors & Windows</h2>
+      <p style="font-family: 'Calibri', 'Inter', sans-serif;">Your Quotation Invoice</p>
+    </div>
+
+    <!-- The Invoice Document -->
+    <div class="q-doc" id="qDoc">
+      <div class="q-doc-header">
+        <div class="q-header-top">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              style="vertical-align: middle;">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+            88387 13630
+          </span>
+          <span
+            style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">ஸ்ரீ
+            மது வீரசின்னம்மாள் துணை</span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              style="vertical-align: middle;">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+            81898 93526
+          </span>
+        </div>
+        <div class="q-header-main">
+          <div class="q-header-logo-left">
+            <img src="logo.png" alt="JVL Interiors &amp; Windows" style="height: 48px; width: auto; object-fit: contain; display: block;" />
+          </div>
+          <div class="q-header-title-center">
+            <h1>JVL INTERIORS &amp; WINDOWS</h1>
+            <p>Your Perfect Choice of Interiors</p>
+          </div>
+          <div class="q-header-logo-right">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNTYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzFiNDMzMiIgc3Ryb2tlLXdpZHRoPSIyIiAvPgogIDxwYXRoIGQ9Ik0gNjAgODUgTCA2MCA1NSBNIDYwIDcwIEwgNDggNjAgTSA2MCA2NSBMIDcyIDU4IiBzdHJva2U9IiM1YzNkMmUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPgogIDxjaXJjbGUgY3g9IjYwIiBjeT0iNDUiIHI9IjE2IiBmaWxsPSIjMmQ2YTRmIiAvPgogIDxjaXJjbGUgY3g9IjQ4IiBjeT0iNTIiIHI9IjEyIiBmaWxsPSIjMmQ2YTRmIiAvPgogIDxjaXJjbGUgY3g9IjcyIiBjeT0iNTIiIHI9IjEyIiBmaWxsPSIjMmQ2YTRmIiAvPgogIDxwYXRoIGQ9Ik0gNDAgODUgQyA0NSA5NSwgNTUgOTUsIDYwIDg4IEMgNjUgOTUsIDc1IDk1LCA4MCA4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDlhMDViIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4KICA8dGV4dCB4PSI2MCIgeT0iMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSI5IiBmaWxsPSIjMmQ2YTRmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TQVZFIFRSRUVTPC90ZXh0PgogIDx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSI5IiBmaWxsPSIjMmQ2YTRmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TQVZFIEVBUlRIPC90ZXh0Pgo8L3N2Zz4K"
+              alt="Save Earth Logo" width="48" height="48" />
+          </div>
+        </div>
+      </div>
+
+      <div class="q-invoice-title">PRO FORMA INVOICE</div>
+      <div class="q-invoice-title-line"></div>
+
+      <div class="q-doc-body">
+        <div class="q-vendor-meta-row">
+          <div class="q-vendor-details">
+            <strong>JVL INTERIORS &amp; WINDOWS (Dindigul)</strong><br>
+            3/8, Lakshmi Devi complex,<br>
+            Kullanampatti, Natham main road,<br>
+            Near SKB petrol bunk, Dindigul.
+          </div>
+          <div class="q-invoice-meta">
+            <p><strong>P.I No:</strong> <span id="qRef">—</span></p>
+            <p><strong>Date:</strong> <span id="qDate">—</span></p>
+          </div>
+        </div>
+
+        <div class="q-section-title">Buyer details</div>
+        <table class="q-details-table">
+          <tr>
+            <td class="q-label-cell">Name</td>
+            <td class="q-value-cell">: <span id="qName">—</span></td>
+            <td class="q-label-cell" style="padding-left: 12px;">E-mail</td>
+            <td class="q-value-cell">: <span id="qEmail">—</span></td>
+          </tr>
+          <tr>
+            <td class="q-label-cell">Phone</td>
+            <td class="q-value-cell">: <span id="qPhone">—</span></td>
+            <td class="q-label-cell" style="padding-left: 12px;">Location</td>
+            <td class="q-value-cell">: <span id="qCity">—</span></td>
+          </tr>
+        </table>
+
+
+        <div class="q-table-scroll">
+          <table class="q-invoice-table">
+            <thead>
+              <tr>
+                <th style="width: 10%;">Sl.no</th>
+                <th style="width: 48%;">Product / Service Description</th>
+                <th style="width: 22%; text-align: right;">Actual Price<br><span style="font-size: 8px; font-weight: normal;">(Excl. Tax)</span></th>
+                <th style="width: 20%; text-align: right;">Amount<br><span style="font-size: 8px; font-weight: normal;">(R.s)</span></th>
+              </tr>
+            </thead>
+            <tbody id="qInvoiceTableBody">
+              <tr>
+                <td style="text-align: center;">1</td>
+                <td id="qTableProduct">—</td>
+                <td style="text-align: right;" id="qTableUnitPrice">₹0</td>
+                <td style="text-align: right; font-weight: 600;" id="qTableAmount">₹0</td>
+              </tr>
+              <tr class="q-desktop-summary-row">
+                <td colspan="2" style="border: none;"></td>
+                <td style="text-align: right; font-weight: bold; padding: 6px 8px;">Subtotal (Excl. Tax)</td>
+                <td style="text-align: right; font-weight: bold; padding: 6px 8px;" id="qSubtotal">₹0</td>
+              </tr>
+              <tr class="q-desktop-summary-row">
+                <td colspan="2" style="border: none;"></td>
+                <td style="text-align: right; font-weight: bold; padding: 6px 8px; color: #1b4332;">18% GST Tax</td>
+                <td style="text-align: right; font-weight: bold; padding: 6px 8px; color: #1b4332;" id="qTax">₹0</td>
+              </tr>
+              <tr class="q-desktop-summary-row q-total-row" style="background-color: #f4f7fa;">
+                <td colspan="2" style="border: none;"></td>
+                <td style="text-align: right; font-weight: 800; padding: 8px 8px; color: #1b4332; font-size: 12.5px;">Total Amount (Incl. 18% Tax)</td>
+                <td style="text-align: right; font-weight: 800; padding: 8px 8px; color: #1b4332; font-size: 12.5px;" id="qTotal">₹0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Horizontal Mobile Totals Box (Displayed below items table on mobile view) -->
+        <div class="q-mobile-totals-box">
+          <div class="q-total-item">
+            <span class="q-total-label">Subtotal (Excl. Tax)</span>
+            <span class="q-total-val" id="qSubtotalMob">₹0</span>
+          </div>
+          <div class="q-total-divider"></div>
+          <div class="q-total-item">
+            <span class="q-total-label">18% GST Tax</span>
+            <span class="q-total-val tax" id="qTaxMob">₹0</span>
+          </div>
+          <div class="q-total-divider"></div>
+          <div class="q-total-item">
+            <span class="q-total-label">Total (Incl. 18% Tax)</span>
+            <span class="q-total-val total" id="qTotalMob">₹0</span>
+          </div>
+        </div>
+
+        <div class="q-tax-note">* Note: Final price confirmed after free site visit. GST (18%) included in Total Amount.</div>
+
+        <div class="q-terms-section">
+          <h5>Terms and conditions</h5>
+          <ul>
+            <li>75% advance along with order and 25% on delivery of material at site before installation.</li>
+            <li>Validation of quote 30 days only.</li>
+            <li>Total execution of project should be completed within 14 days of advance payment received.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="q-actions" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px;">
+      <button class="btn-download" id="btnDownloadPDF" onclick="downloadPDF()" style="font-family: 'Calibri', 'Inter', sans-serif; background: #C9A84C; color: #000; font-weight: 700; border: none; padding: 14px 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">📄 Download Your Quotation</button>
+      <button class="btn-appointment" id="btnAppointment" onclick="bookAppointment()" style="font-family: 'Calibri', 'Inter', sans-serif; background: #15803D; color: #FFF; font-weight: 700; border: none; padding: 14px 24px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">📅 Book an Appointment</button>
+    </div>
+  </div>
+
+  <!-- Error state (shown when no data) -->
+  <div class="error-state" id="errorState" style="display: none;">
+    <h2>No Quotation Data Found</h2>
+    <p>Please submit the quotation form on the JVL Interiors & Windows website first, then this page will open
+      automatically with your invoice.</p>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ─── Read data from sessionStorage ───
+      var raw = sessionStorage.getItem('jvl_quotation_data');
+      if (!raw) {
+        document.getElementById('invoiceContainer').style.display = 'none';
+        document.getElementById('errorState').style.display = 'block';
+        return;
+      }
+
+      var d;
+      try {
+        d = JSON.parse(raw);
+      } catch (e) {
+        document.getElementById('invoiceContainer').style.display = 'none';
+        document.getElementById('errorState').style.display = 'block';
+        return;
+      }
+
+      // Store globally for download functions
+      window.currentQ = d;
+
+      // ─── Populate the invoice fields ───
+      document.getElementById('qRef').textContent = d.ref || '—';
+      document.getElementById('qDate').textContent = d.date || '—';
+      document.getElementById('qName').textContent = d.name || '—';
+      document.getElementById('qPhone').textContent = d.phone || '—';
+      document.getElementById('qEmail').textContent = (d.email && d.email !== '—' && d.email.trim()) ? d.email : 'Not specified';
+      if (document.getElementById('qService')) document.getElementById('qService').textContent = d.service || '—';
+      document.getElementById('qCity').textContent = d.city || '—';
+
+      var serviceRates = {
+        'Interior Work': { price: 450, unit: '1 sq.ft', rateDisplay: '₹450/sq.ft onwards' },
+        'uPVC Windows': { price: 300, unit: '1 sq.ft', rateDisplay: '₹300/sq.ft onwards' },
+        'Mosquito Windows': { price: 160, unit: '1 sq.ft', rateDisplay: '₹160/sq.ft onwards' },
+        'System Windows': { price: 1200, unit: '1 sq.ft', rateDisplay: '₹1,200/sq.ft onwards' },
+        'System Window': { price: 1200, unit: '1 sq.ft', rateDisplay: '₹1,200/sq.ft onwards' },
+        'PVC Doors': { price: 2400, unit: '1 Piece', rateDisplay: '₹2,400/piece onwards' },
+        'Partition Works': { price: 350, unit: '1 sq.ft', rateDisplay: '₹350/sq.ft onwards' },
+        'Doors & Partitions': { price: 350, unit: '1 sq.ft', rateDisplay: '₹350/sq.ft onwards' },
+        'Modular Kitchen': { price: 450, unit: '1 sq.ft', rateDisplay: '₹450/sq.ft onwards' },
+        'Cupboard Works': { price: 350, unit: '1 sq.ft', rateDisplay: '₹350/sq.ft onwards' },
+        'False Ceiling': { price: 75, unit: '1 sq.ft', rateDisplay: '₹75/sq.ft onwards' },
+        'False Ceiling & Lighting': { price: 75, unit: '1 sq.ft', rateDisplay: '₹75/sq.ft onwards' },
+        'Others': { price: 350, unit: '1 sq.ft', rateDisplay: '₹350/sq.ft onwards' }
+      };
+
+      var items = d.items;
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        items = [];
+        var servicesList = d.servicesList || (d.service ? d.service.split(', ') : []);
+        if (servicesList.length > 0) {
+          servicesList.forEach(function (s) {
+            var name = s.trim();
+            if (name) {
+              var info = serviceRates[name] || { price: 350, unit: '1 sq.ft', rateDisplay: '₹350/sq.ft onwards' };
+              items.push({
+                name: name,
+                unit: info.unit,
+                rateDisplay: info.rateDisplay,
+                price: info.price,
+                amountStr: '₹' + Number(info.price).toLocaleString('en-IN')
+              });
+            }
+          });
+        } else {
+          items.push({ name: d.service || 'General Interior / Window Work', unit: '1 sq.ft', rateDisplay: '₹350/sq.ft onwards', price: d.subtotal || 350, amountStr: '₹350' });
+        }
+      }
+
+      var subtotal = d.subtotal;
+      if (typeof subtotal !== 'number') {
+        subtotal = 0;
+        items.forEach(function (it) { subtotal += (it.price || 0); });
+      }
+      var taxAmount = d.taxAmount || Math.round(subtotal * 0.18);
+      var totalWithTax = d.totalWithTax || (subtotal + taxAmount);
+
+      function fmt(val) { return '₹' + Number(val).toLocaleString('en-IN'); }
+
+      function setText(id, text) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
+
+      // Populate Table Rows for all selected services
+      var tbody = document.getElementById('qInvoiceTableBody');
+      if (tbody) {
+        var rowsHtml = '';
+        items.forEach(function (item, idx) {
+          var unitStr = item.unit || '1 sq.ft';
+          var rateStr = item.rateDisplay || (fmt(item.price) + ' onwards');
+          if (rateStr.indexOf('onwards') === -1) {
+            rateStr += ' onwards';
+          }
+          var rawAmtStr = item.amountStr || fmt(item.price);
+          var amtStr = rawAmtStr.replace(/\s*onwards\s*/gi, '').trim();
+
+          rowsHtml += '<tr>' +
+            '<td style="text-align: center;">' + (idx + 1) + '</td>' +
+            '<td>' + item.name + '</td>' +
+            '<td style="text-align: right;">' + rateStr + '</td>' +
+            '<td style="text-align: right; font-weight: 600;">' + amtStr + '</td>' +
+            '</tr>';
+        });
+
+        rowsHtml += '<tr class="q-desktop-summary-row">' +
+          '<td colspan="2" style="border: none;"></td>' +
+          '<td style="text-align: right; font-weight: bold; padding: 6px 8px;">Subtotal (Excl. Tax)</td>' +
+          '<td style="text-align: right; font-weight: bold; padding: 6px 8px;" id="qSubtotal">' + fmt(subtotal) + '</td>' +
+          '</tr>' +
+          '<tr class="q-desktop-summary-row">' +
+          '<td colspan="2" style="border: none;"></td>' +
+          '<td style="text-align: right; font-weight: bold; padding: 6px 8px; color: #1b4332;">18% GST Tax</td>' +
+          '<td style="text-align: right; font-weight: bold; padding: 6px 8px; color: #1b4332;" id="qTax">' + fmt(taxAmount) + '</td>' +
+          '</tr>' +
+          '<tr class="q-desktop-summary-row q-total-row" style="background-color: #f4f7fa;">' +
+          '<td colspan="2" style="border: none;"></td>' +
+          '<td style="text-align: right; font-weight: bold; padding: 6px 8px; color: #0d3a94; font-size: 13px;">Total Amount (Incl. 18% Tax)</td>' +
+          '<td style="text-align: right; font-weight: bold; padding: 6px 8px; color: #0d3a94; font-size: 13px;" id="qTotal">' + fmt(totalWithTax) + ' approx.</td>' +
+          '</tr>';
+
+        tbody.innerHTML = rowsHtml;
+      }
+
+      setText('qSubtotalMob', fmt(subtotal));
+      setText('qTaxMob', fmt(taxAmount));
+      setText('qTotalMob', fmt(totalWithTax) + ' approx.');
+
+      // ─── Download PDF ───
+      window.downloadPDF = function () {
+        var btn = document.getElementById('btnDownloadPDF');
+        var originalBtnText = btn ? btn.innerHTML : '📄 Download Your Quotation';
+        if (btn) {
+          btn.innerHTML = '⏳ Generating PDF...';
+          btn.disabled = true;
+        }
+
+        var refStr = (d && d.ref) ? d.ref : ('JVL-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000));
+        var element = document.getElementById('qDoc');
+
+        if (!element) {
+          if (btn) {
+            btn.innerHTML = originalBtnText;
+            btn.disabled = false;
+          }
+          alert('Invoice preview document not found.');
+          return;
+        }
+
+        if (typeof html2pdf !== 'undefined') {
+          var originalStyle = element.getAttribute('style') || '';
+          element.style.setProperty('margin', '0', 'important');
+          element.style.setProperty('border', 'none', 'important');
+          element.style.setProperty('box-shadow', 'none', 'important');
+          element.style.setProperty('border-radius', '0', 'important');
+
+          var opt = {
+            margin: [4, 4, 4, 4],
+            filename: 'JVL_Quotation_' + refStr + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: {
+              scale: 2,
+              useCORS: true,
+              allowTaint: true,
+              letterRendering: true,
+              backgroundColor: '#FFFFFF',
+              windowWidth: 794,
+              scrollX: 0,
+              scrollY: 0
+            },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          };
+
+          try {
+            html2pdf().set(opt).from(element).save().then(function () {
+              element.setAttribute('style', originalStyle);
+              if (btn) {
+                btn.innerHTML = '✓ PDF Downloaded';
+                btn.disabled = false;
+                setTimeout(function () { btn.innerHTML = originalBtnText; }, 3000);
+              }
+            }).catch(function (err) {
+              console.error('PDF generation error:', err);
+              element.setAttribute('style', originalStyle);
+              if (btn) {
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+              }
+              window.print();
+            });
+          } catch (ex) {
+            console.error('PDF generation error:', ex);
+            element.setAttribute('style', originalStyle);
+            if (btn) {
+              btn.innerHTML = originalBtnText;
+              btn.disabled = false;
+            }
+            window.print();
+          }
+        } else {
+          if (btn) {
+            btn.innerHTML = originalBtnText;
+            btn.disabled = false;
+          }
+          window.print();
+        }
+      };
+
+      // ─── Book Appointment via WhatsApp ───
+      window.bookAppointment = function () {
+        if (!d.ref) return;
+
+        var msg = 'Hello JVL Interiors & Windows!\n\n';
+        msg += 'I would like to book an appointment.\n\n';
+        msg += '*Quotation Details:*\n';
+        msg += 'Ref: ' + d.ref + '\n';
+        msg += 'Name: ' + d.name + '\n';
+        msg += 'Phone: ' + d.phone + '\n';
+        msg += 'Location: ' + d.city + '\n';
+        msg += 'Service: ' + d.service + '\n\n';
+        msg += 'Please share the quotation amount and schedule a visit.\n\nThank you!';
+
+        window.open('https://wa.me/918189893526?text=' + encodeURIComponent(msg), '_blank');
+      };
+
+    })();
+  </script>
+</body>
+
+</html>

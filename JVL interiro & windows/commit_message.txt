@@ -1,0 +1,13 @@
+feat: enhance service cards and consultation page with hero backgrounds
+
+- Converted all 6 service cards to hero-style cards with modern background images and smooth gradient overlays.
+- Converted "Get Your Proposal" (Consultation) section to a full-width background section using `booking-consultation-bg.png` with a dark gradient overlay and glassmorphism (frosted glass) card container.
+- Aligned the "Get Your Proposal" card container to the right side on desktop screens (min-width: 900px) so the left-aligned background imagery is visible and balanced.
+- Standardized typography to Calibri on service card headers for clean '&' symbol rendering.
+- Removed emoji icons from all service cards in HTML and JSON data for a clean modern layout.
+- Upgraded the "Know More" feature across all cards to show a temporary toast alert.
+- Added chatbot knowledge base documentation to `AGENTS.md` as the single source of truth for the assistant.
+- Replaced the calendar emoji "📅" in the Get Your Proposal card with a transparent-rendered custom steps icon row (`proposal-steps.png`).
+- Styled the "BOOK NOW" eyebrow tag in the consultation section to match the gold rounded pill layout of the hero eyebrow tag, improving contrast and aesthetic continuity.
+- Updated booking-card contents: changed title header to "Connect with us", renamed buttons to "Call Now" (number hidden from label text but functional) and "WhatsApp".
+- Added a custom image icon (`whatsapp-icon.png`) to the WhatsApp CTA button, restoring the button's classic green background, white text, and using a CSS filter to render the icon fully transparent and white.

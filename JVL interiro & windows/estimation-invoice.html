@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>JVL Interiors & Windows — Estimation Invoice</title>
+  <meta name="description" content="Your JVL Interiors & Windows estimation invoice." />
+  <meta name="theme-color" content="#C9A84C" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    /* ═══════════════════════════════════════════════
+       STANDALONE ESTIMATION INVOICE — MOBILE-FIRST CSS
+       ═══════════════════════════════════════════════ */
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f5f5f0;
+      color: #000;
+      line-height: 1.6;
+      padding: 12px;
+      padding-top: max(12px, env(safe-area-inset-top, 0px));
+      padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+      padding-left: max(12px, env(safe-area-inset-left, 0px));
+      padding-right: max(12px, env(safe-area-inset-right, 0px));
+      min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Container ── */
+    .invoice-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Page Title Bar ── */
+    .page-title-bar {
+      text-align: center;
+      margin-bottom: 16px;
+      padding: 12px 8px;
+      background: #0d3b8e;
+      border-radius: 8px;
+      color: #fff;
+    }
+
+    .page-title-bar h2 {
+      font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #FFE600;
+      margin: 0;
+    }
+
+    .page-title-bar p {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* ── Invoice Document ── */
+    .est-doc {
+      background: #FFFFFF;
+      border: 1px solid #000000;
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #000000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border-radius: 6px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* ── Blue Header ── */
+    .est-header {
+      background-color: #0d3b8e;
+      color: #ffffff;
+      padding: 8px 12px;
+    }
+
+    .est-header-contact {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 4px;
+    }
+
+    .est-header-contact span {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .est-header-logos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .est-logo-left-wrap {
+      background: white;
+      border-radius: 6px;
+      padding: 3px 6px;
+      height: 54px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid #0d3b8e;
+    }
+
+    .est-logo-left-wrap img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .est-logo-circle {
+      background: white;
+      border-radius: 50%;
+      padding: 3px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .est-logo-circle img,
+    .est-logo-circle svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .est-header-center {
+      text-align: center;
+      flex: 1;
+      padding: 0 6px;
+    }
+
+    .est-header-center h1 {
+      margin: 0;
+      font-family: 'Calibri', 'Inter', -apple-system, sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffd700;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .est-header-center p {
+      margin: 2px 0 0;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    /* ── Invoice Title ── */
+    .est-invoice-title {
+      text-align: center;
+      margin: 14px 0 14px 0;
+    }
+
+    .est-invoice-title h2 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #000;
+    }
+
+    .est-invoice-title-line {
+      width: 100%;
+      height: 2px;
+      background-color: #000;
+      margin-top: 6px;
+    }
+
+    /* ── Body ── */
+    .est-body {
+      padding: 0 12px 16px 12px;
+    }
+
+    /* Company & Ref Row */
+    .est-company-ref {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      gap: 8px;
+    }
+
+    .est-company-ref .company-name {
+      color: #0d3b8e;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .est-ref-info {
+      text-align: right;
+      white-space: nowrap;
+      font-size: 11px;
+    }
+
+    /* Buyer Section */
+    .est-section-title {
+      margin: 0 0 3px 0;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .est-section-line {
+      width: 100%;
+      height: 1px;
+      background-color: #000;
+      margin-bottom: 6px;
+    }
+
+    .est-buyer-table {
+      width: 100%;
+      font-size: 11px;
+      line-height: 1.8;
+      border-collapse: collapse;
+    }
+
+    .est-buyer-table td {
+      padding: 1px 0;
+    }
+
+    .est-buyer-table strong {
+      font-weight: 700;
+    }
+
+    /* Service Section */
+    .est-service-row {
+      font-size: 11px;
+      margin-bottom: 16px;
+    }
+
+    /* Invoice Table */
+    .est-table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .est-invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #000;
+      font-size: 10px;
+      margin-bottom: 4px;
+      table-layout: fixed;
+    }
+
+    .est-invoice-table th,
+    .est-invoice-table td {
+      border: 1px solid #000;
+      padding: 6px 4px;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.3;
+    }
+
+    .est-invoice-table th {
+      background-color: #f9f9f9;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .est-invoice-table .col-slno {
+      width: 8%;
+    }
+
+    .est-invoice-table .col-product {
+      width: auto;
+    }
+
+    .est-invoice-table .col-qty {
+      width: 15%;
+    }
+
+    .est-invoice-table .col-unit {
+      width: 15%;
+    }
+
+    .est-invoice-table .col-amount {
+      width: 18%;
+    }
+
+    /* Tax note */
+    .est-tax-note {
+      text-align: right;
+      font-size: 9px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    /* Terms */
+    .est-terms h3 {
+      margin: 0 0 6px 0;
+      font-size: 11px;
+      font-weight: bold;
+      color: #000;
+      text-transform: uppercase;
+    }
+
+    .est-terms ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 10px;
+      line-height: 1.5;
+      color: #000;
+    }
+
+    .est-terms li {
+      margin-bottom: 2px;
+    }
+
+    /* Budget Range Box */
+    .est-range-box {
+      margin-top: 16px;
+      padding: 12px;
+      border: 1px dashed #0d3b8e;
+      background-color: #f4f7fa;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .est-range-box strong {
+      color: #0d3b8e;
+    }
+
+    .est-range-box .range-value {
+      font-family: 'Calibri', 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 6px;
+    }
+
+    /* ── Action Buttons ── */
+    .est-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .est-actions button {
+      width: 100%;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-pdf-dl {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .btn-pdf-dl:hover {
+      background: var(--gold-light);
+      opacity: 0.95;
+      transform: translateY(-2px);
+    }
+
+    .btn-excel-dl {
+      background: #107c41;
+      color: #ffffff;
+    }
+
+    .btn-excel-dl:hover {
+      background: #0e6b37;
+      opacity: 0.95;
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Totals Box (Hidden on desktop, shown on mobile) */
+    .est-mobile-totals-box {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 6px;
+      }
+
+      .invoice-container {
+        max-width: 100%;
+      }
+
+      .est-body {
+        padding: 10px 10px;
+      }
+
+      .est-invoice-table {
+        font-size: 10px;
+      }
+
+      .est-invoice-table th,
+      .est-invoice-table td {
+        padding: 5px 4px;
+      }
+
+      .est-desktop-summary-row {
+        display: none !important;
+      }
+
+      .est-mobile-totals-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background: #f4f7fa;
+        border: 1px solid #0d3b8e;
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        gap: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .est-total-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+      }
+
+      .est-total-label {
+        font-size: 8.5px;
+        font-weight: 700;
+        color: #444;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+      }
+
+      .est-total-val {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #000;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+
+      .est-total-val.tax {
+        color: #0d3b8e;
+      }
+
+      .est-total-val.total {
+        color: #0d3b8e;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .est-total-divider {
+        width: 1px;
+        height: 24px;
+        background-color: rgba(0, 0, 0, 0.15);
+        flex-shrink: 0;
+      }
+    }
+
+    /* ═══ RESPONSIVE: Tablet (600px+) ═══ */
+    @media (min-width: 600px) {
+      body {
+        padding: 24px;
+      }
+
+      .invoice-container {
+        max-width: 680px;
+      }
+
+      .est-header {
+        padding: 10px 20px;
+      }
+
+      .est-header-contact {
+        font-size: 11px;
+        margin-bottom: 12px;
+      }
+
+      .est-logo-circle {
+        width: 56px;
+        height: 56px;
+        padding: 4px;
+      }
+
+      .est-logo-circle svg {
+        width: 46px;
+        height: 46px;
+      }
+
+      .est-header-center h1 {
+        font-size: 24px;
+        letter-spacing: 1px;
+      }
+
+      .est-header-center p {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+      }
+
+      .est-invoice-title h2 {
+        font-size: 18px;
+      }
+
+      .est-body {
+        padding: 0 30px 20px 30px;
+      }
+
+      .est-company-ref {
+        font-size: 13px;
+        margin-bottom: 30px;
+      }
+
+      .est-company-ref .company-name {
+        font-size: 14px;
+      }
+
+      .est-section-title {
+        font-size: 14px;
+      }
+
+      .est-buyer-table {
+        font-size: 13px;
+        line-height: 2;
+      }
+
+      .est-service-row {
+        font-size: 13px;
+      }
+
+      .est-invoice-table {
+        font-size: 13px;
+      }
+
+      .est-invoice-table th,
+      .est-invoice-table td {
+        padding: 10px;
+      }
+
+      .est-tax-note {
+        font-size: 11px;
+        margin-bottom: 30px;
+      }
+
+      .est-terms h3 {
+        font-size: 13px;
+      }
+
+      .est-terms ul {
+        font-size: 12px;
+        padding-left: 20px;
+      }
+
+      .est-range-box {
+        font-size: 13px;
+        padding: 15px;
+        margin-top: 30px;
+      }
+
+      .est-range-box .range-value {
+        font-size: 16px;
+        margin-left: 10px;
+      }
+
+      .est-actions {
+        flex-direction: row;
+        gap: 16px;
+      }
+
+      .est-actions button {
+        flex: 1;
+        padding: 16px 28px;
+        font-size: 15px;
+      }
+
+      .page-title-bar h2 {
+        font-size: 20px;
+      }
+
+      .page-title-bar p {
+        font-size: 12px;
+      }
+    }
+
+    /* ═══ RESPONSIVE: Desktop (840px+) ═══ */
+    @media (min-width: 840px) {
+      body {
+        padding: 32px;
+      }
+
+      .invoice-container {
+        max-width: 794px;
+      }
+
+      .est-logo-circle {
+        width: 60px;
+        height: 60px;
+      }
+
+      .est-logo-circle svg {
+        width: 50px;
+        height: 50px;
+      }
+
+      .est-header-center h1 {
+        font-size: 26px;
+      }
+
+      .est-invoice-title {
+        margin: 20px 0;
+      }
+
+      .page-title-bar {
+        padding: 16px;
+        border-radius: 10px;
+      }
+
+      .page-title-bar h2 {
+        font-size: 22px;
+      }
+    }
+
+    /* ═══ PRINT ═══ */
+    @media print {
+      @page {
+        margin: 0;
+        size: A4 portrait;
+      }
+
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+      }
+
+      body * {
+        visibility: hidden !important;
+      }
+
+      #estPrintArea,
+      #estPrintArea * {
+        visibility: visible !important;
+      }
+
+      #estPrintArea {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #ffffff !important;
+      }
+
+      .est-header,
+      #estPrintArea div[style*="background-color: #0d3b8e"] {
+        background-color: #0d3b8e !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .page-title-bar,
+      .est-actions,
+      .est-actions *,
+      .est-range-box,
+      .est-budget-range-box,
+      .btn-pdf-dl,
+      .btn-excel-dl,
+      .error-state {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
+        opacity: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container" id="invoiceContainer">
+    <!-- Title bar (hidden in print) -->
+    <div class="page-title-bar">
+      <h2>JVL Interiors & Windows</h2>
+      <p>Your Estimation Invoice</p>
+    </div>
+
+    <!-- The Invoice Document -->
+    <div class="est-doc" id="estPrintArea">
+      <!-- Blue Header -->
+      <div class="est-header">
+        <!-- Top contact row -->
+        <div class="est-header-contact">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+            88387 13630
+          </span>
+          <span
+            style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">
+            ஸ்ரீ மது வீரசின்னம்மாள் துணை
+          </span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+            81898 93526
+          </span>
+        </div>
+
+        <!-- Main Logo Row -->
+        <div class="est-header-logos">
+          <!-- Left Logo -->
+          <div class="est-logo-left-wrap">
+            <img src="logo.png" alt="JVL Interiors &amp; Windows" style="height: 48px; width: auto; object-fit: contain; display: block;" />
+          </div>
+
+          <!-- Center Title -->
+          <div class="est-header-center">
+            <h1>JVL INTERIORS &amp; WINDOWS</h1>
+            <p>Your Perfect Choice of Interiors</p>
+          </div>
+
+          <!-- Right Logo -->
+          <div class="est-logo-circle">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNTYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzFiNDMzMiIgc3Ryb2tlLXdpZHRoPSIyIiAvPgogIDxwYXRoIGQ9Ik0gNjAgODUgTCA2MCA1NSBNIDYwIDcwIEwgNDggNjAgTSA2MCA2NSBMIDcyIDU4IiBzdHJva2U9IiM1YzNkMmUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPgogIDxjaXJjbGUgY3g9IjYwIiBjeT0iNDUiIHI9IjE2IiBmaWxsPSIjMmQ2YTRmIiAvPgogIDxjaXJjbGUgY3g9IjQ4IiBjeT0iNTIiIHI9IjEyIiBmaWxsPSIjMmQ2YTRmIiAvPgogIDxjaXJjbGUgY3g9IjcyIiBjeT0iNTIiIHI9IjEyIiBmaWxsPSIjMmQ2YTRmIiAvPgogIDxwYXRoIGQ9Ik0gNDAgODUgQyA0NSA5NSwgNTUgOTUsIDYwIDg4IEMgNjUgOTUsIDc1IDk1LCA4MCA4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDlhMDViIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4KICA8dGV4dCB4PSI2MCIgeT0iMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSI5IiBmaWxsPSIjMmQ2YTRmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TQVZFIFRSRUVTPC90ZXh0PgogIDx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSI5IiBmaWxsPSIjMmQ2YTRmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TQVZFIEVBUlRIPC90ZXh0Pgo8L3N2Zz4K"
+              alt="Save Earth Logo" width="50" height="50" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Title line -->
+      <div class="est-invoice-title">
+        <h2>PRO FORMA INVOICE</h2>
+        <div class="est-invoice-title-line"></div>
+      </div>
+
+      <div class="est-body">
+        <!-- Company & Ref Info -->
+        <div class="est-company-ref">
+          <div>
+            <strong class="company-name">JVL INTERIORS &amp; WINDOWS (Dindigul)</strong><br>
+            3/8, Lakshmi Devi complex,<br>
+            Kullanampatti, Natham main road,<br>
+            Near SKB petrol bunk, Dindigul.
+          </div>
+          <div class="est-ref-info">
+            <div><strong>P.I No:</strong> <span id="pdf-est-ref">JVL-EST-XXXX</span></div>
+            <div><strong>Date:</strong> <span id="pdf-est-date">--/--/----</span></div>
+          </div>
+        </div>
+
+        <!-- Buyer Details -->
+        <div style="margin-bottom: 16px;">
+          <h3 class="est-section-title">Buyer Details</h3>
+          <div class="est-section-line"></div>
+          <table class="est-buyer-table">
+            <tr>
+              <td style="width: 12%;"><strong>Name</strong></td>
+              <td style="width: 38%;">: <span id="pdf-cust-name">—</span></td>
+              <td style="width: 12%;"><strong>City</strong></td>
+              <td style="width: 38%;">: <span id="pdf-cust-city">—</span></td>
+            </tr>
+            <tr>
+              <td><strong>Phone</strong></td>
+              <td>: <span id="pdf-cust-phone">—</span></td>
+              <td colspan="2"></td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Service Requested -->
+        <div class="est-service-row" style="margin-bottom: 16px;">
+          <h3 class="est-section-title">Service Requested</h3>
+          <div class="est-section-line"></div>
+          <div>
+            <strong>Service</strong> <span style="margin-left: 12px;">: <span id="pdf-proj-service">—</span></span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="est-table-scroll">
+          <table class="est-invoice-table">
+            <thead>
+              <tr>
+                <th class="col-slno">Sl.no</th>
+                <th class="col-product">Product</th>
+                <th class="col-qty">Quantity<br><span style="font-size:9px;font-weight:normal;">Sq.ft</span></th>
+                <th class="col-unit">Unit price<br><span style="font-size:9px;font-weight:normal;">(R.s)</span></th>
+                <th class="col-amount">Amount<br><span style="font-size:9px;font-weight:normal;">(R.s)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1: Base -->
+              <tr>
+                <td style="text-align: center;">1</td>
+                <td id="pdf-break-base-desc">--</td>
+                <td style="text-align: center;" id="pdf-proj-size">--</td>
+                <td style="text-align: center; color: #666; font-style: italic;">As per spec</td>
+                <td style="text-align: right;" id="pdf-break-base">₹0</td>
+              </tr>
+              <!-- Row 2: Material -->
+              <tr>
+                <td style="text-align: center;">2</td>
+                <td id="pdf-break-mat-desc">--</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center; color: #666; font-style: italic;">As per spec</td>
+                <td style="text-align: right;" id="pdf-break-mat">₹0</td>
+              </tr>
+              <!-- Row 3: Addons -->
+              <tr id="pdf-break-addons-row">
+                <td style="text-align: center;">3</td>
+                <td id="pdf-break-addons-desc">--</td>
+                <td style="text-align: center;">-</td>
+                <td style="text-align: center; color: #666; font-style: italic;">As per spec</td>
+                <td style="text-align: right;" id="pdf-break-addons">₹0</td>
+              </tr>
+              <!-- Empty Row -->
+              <tr>
+                <td style="padding: 14px 4px;"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <!-- Totals -->
+              <tr class="est-desktop-summary-row">
+                <td colspan="3"></td>
+                <td style="font-weight: bold; text-align: right; padding: 6px 10px;">Subtotal (Excl. Tax)</td>
+                <td style="text-align: right; font-weight: bold; padding: 6px 10px;" id="pdf-break-subtotal">₹0</td>
+              </tr>
+              <tr class="est-desktop-summary-row">
+                <td colspan="3"></td>
+                <td style="font-weight: bold; text-align: right; padding: 6px 10px; color: #0d3b8e;">18% GST Tax</td>
+                <td style="text-align: right; font-weight: bold; padding: 6px 10px; color: #0d3b8e;" id="pdf-break-tax">₹0</td>
+              </tr>
+              <tr class="est-desktop-summary-row" style="background-color: #f4f7fa;">
+                <td colspan="3"></td>
+                <td style="font-weight: 800; text-align: right; padding: 8px 10px; color: #0d3b8e; font-size: 12px;">Total Amount (Incl. 18% Tax)</td>
+                <td style="text-align: right; font-weight: 800; padding: 8px 10px; color: #0d3b8e; font-size: 12px;" id="pdf-break-total">₹0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Horizontal Mobile Totals Box (Displayed below items table on mobile view) -->
+        <div class="est-mobile-totals-box">
+          <div class="est-total-item">
+            <span class="est-total-label">Subtotal (Excl. Tax)</span>
+            <span class="est-total-val" id="pdf-break-subtotal-mob">₹0</span>
+          </div>
+          <div class="est-total-divider"></div>
+          <div class="est-total-item">
+            <span class="est-total-label">18% GST Tax</span>
+            <span class="est-total-val tax" id="pdf-break-tax-mob">₹0</span>
+          </div>
+          <div class="est-total-divider"></div>
+          <div class="est-total-item">
+            <span class="est-total-label">Total (Incl. 18% Tax)</span>
+            <span class="est-total-val total" id="pdf-break-total-mob">₹0</span>
+          </div>
+        </div>
+
+        <div class="est-tax-note">* Note: 18% GST Tax included in Total Amount. Final pricing confirmed after free home inspection.</div>
+
+        <!-- Terms -->
+        <div class="est-terms">
+          <h3>TERMS AND CONDITIONS</h3>
+          <ul>
+            <li>This estimation report is generated automatically based on user choices and sizes and is strictly
+              indicative.</li>
+            <li>75% advance along with order and 25% on delivery of material at site before installation.</li>
+            <li>Validation of quote 30 days only.</li>
+            <li>Total execution of project should be completed within 14 days of advance payment received.</li>
+          </ul>
+        </div>
+
+        <!-- Budget Range info -->
+        <div class="est-range-box">
+          <strong>Indicative Budget Range:</strong>
+          <span class="range-value" id="pdf-final-range">₹0 - ₹0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="est-actions">
+      <button class="btn-pdf-dl" id="btnDownloadPDF" onclick="downloadEstimationPDF()">📄 Download as PDF</button>
+      <button class="btn-excel-dl" id="btnDownloadExcel" onclick="downloadEstimationExcel()">📊 Download as
+        Excel</button>
+    </div>
+  </div>
+
+  <!-- Error state (shown when no data) -->
+  <div class="error-state" id="errorState" style="display: none;">
+    <h2>No Estimation Data Found</h2>
+    <p>Please complete the estimation calculator on the JVL Interiors & Windows website first, then this page will open
+      automatically with your invoice.</p>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ─── Helper: format Indian currency ───
+      function formatCurrencyOnly(num) {
+        if (num === undefined || num === null || isNaN(num)) return '₹0';
+        return '₹' + Math.round(num).toLocaleString('en-IN');
+      }
+
+      // ─── Read data from sessionStorage ───
+      var raw = sessionStorage.getItem('jvl_estimation_data');
+      if (!raw) {
+        document.getElementById('invoiceContainer').style.display = 'none';
+        document.getElementById('errorState').style.display = 'block';
+        return;
+      }
+
+      var d;
+      try {
+        d = JSON.parse(raw);
+      } catch (e) {
+        document.getElementById('invoiceContainer').style.display = 'none';
+        document.getElementById('errorState').style.display = 'block';
+        return;
+      }
+
+      // Store globally for download functions
+      window._estData = d;
+
+      // ─── Populate the invoice fields ───
+      function setText(id, val) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = val || '—';
+      }
+
+      setText('pdf-est-ref', d.estRef);
+      setText('pdf-est-date', d.date);
+      setText('pdf-cust-name', d.name);
+      setText('pdf-cust-phone', d.phone);
+      setText('pdf-cust-city', d.city);
+      setText('pdf-proj-service', d.service);
+      setText('pdf-proj-size', d.size);
+      var subtotal = d.subtotal || (d.baseCost + d.matCost + d.addonsCost) || d.totalAmount || 0;
+      var taxAmount = d.taxAmount || Math.round(subtotal * 0.18);
+      var totalWithTax = d.totalAmountWithTax || (subtotal + taxAmount);
+      var minRange = d.minRange || totalWithTax;
+      var maxRange = d.maxRange || Math.round(totalWithTax * 1.15);
+
+      setText('pdf-break-base-desc', d.baseDesc);
+      setText('pdf-break-base', formatCurrencyOnly(d.baseCost));
+      setText('pdf-break-mat-desc', d.matDesc);
+      setText('pdf-break-mat', formatCurrencyOnly(d.matCost));
+      setText('pdf-break-addons-desc', d.addonsDesc);
+      setText('pdf-break-addons', formatCurrencyOnly(d.addonsCost));
+      setText('pdf-break-subtotal', formatCurrencyOnly(subtotal));
+      setText('pdf-break-tax', formatCurrencyOnly(taxAmount));
+      setText('pdf-break-total', formatCurrencyOnly(totalWithTax));
+      setText('pdf-break-subtotal-mob', formatCurrencyOnly(subtotal));
+      setText('pdf-break-tax-mob', formatCurrencyOnly(taxAmount));
+      setText('pdf-break-total-mob', formatCurrencyOnly(totalWithTax));
+      setText('pdf-final-range', formatCurrencyOnly(minRange) + ' - ' + formatCurrencyOnly(maxRange));
+
+      // Hide addons row if zero
+      var addonsRow = document.getElementById('pdf-break-addons-row');
+      if (addonsRow && (!d.addonsCost || d.addonsCost === 0)) {
+        addonsRow.style.display = 'none';
+      }
+
+      // ─── Download Estimation PDF ───
+      window.downloadEstimationPDF = function () {
+        var element = document.getElementById('estPrintArea');
+        if (!element) {
+          alert('Estimation document area not found.');
+          return;
+        }
+
+        var btn = document.getElementById('btnDownloadPDF');
+        var originalBtnText = btn ? btn.innerHTML : '📄 Download as PDF';
+        if (btn) {
+          btn.innerHTML = '⏳ Generating PDF...';
+          btn.disabled = true;
+        }
+
+        var cleanName = (d && d.name ? d.name : 'Customer').replace(/[^a-zA-Z0-9_-]/g, '_').replace(/_+/g, '_');
+        var now = new Date();
+        var dateStr = String(now.getDate()).padStart(2, '0') + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + now.getFullYear();
+        var filename = 'JVL-Estimation-' + cleanName + '-' + dateStr + '.pdf';
+
+        var originalStyle = element.getAttribute('style') || '';
+        element.style.setProperty('margin', '0', 'important');
+        element.style.setProperty('border', 'none', 'important');
+        element.style.setProperty('box-shadow', 'none', 'important');
+        element.style.setProperty('border-radius', '0', 'important');
+
+        // Temporarily hide Indicative Budget Range box during PDF generation
+        var rangeBox = element.querySelector('.est-range-box') || element.querySelector('.est-budget-range-box');
+        var originalRangeDisplay = rangeBox ? rangeBox.style.display : '';
+        if (rangeBox) rangeBox.style.display = 'none';
+
+        var opt = {
+          margin: [2, 2, 2, 2],
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            letterRendering: true,
+            backgroundColor: '#FFFFFF',
+            windowWidth: 794,
+            scrollX: 0,
+            scrollY: 0
+          },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        if (typeof html2pdf !== 'undefined') {
+          try {
+            html2pdf().set(opt).from(element).save().then(function () {
+              element.setAttribute('style', originalStyle);
+              if (rangeBox) rangeBox.style.display = originalRangeDisplay;
+              if (btn) {
+                btn.innerHTML = '✓ PDF Downloaded';
+                btn.disabled = false;
+                setTimeout(function () { btn.innerHTML = originalBtnText; }, 3000);
+              }
+            }).catch(function (err) {
+              console.error('PDF generation error:', err);
+              element.setAttribute('style', originalStyle);
+              if (rangeBox) rangeBox.style.display = originalRangeDisplay;
+              if (btn) {
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+              }
+              window.print();
+            });
+          } catch (ex) {
+            console.error('PDF error:', ex);
+            element.setAttribute('style', originalStyle);
+            if (rangeBox) rangeBox.style.display = originalRangeDisplay;
+            if (btn) {
+              btn.innerHTML = originalBtnText;
+              btn.disabled = false;
+            }
+            window.print();
+          }
+        } else {
+          element.setAttribute('style', originalStyle);
+          if (rangeBox) rangeBox.style.display = originalRangeDisplay;
+          if (btn) {
+            btn.innerHTML = originalBtnText;
+            btn.disabled = false;
+          }
+          window.print();
+        }
+      };
+
+      // ─── Download Estimation Excel ───
+      window.downloadEstimationExcel = function () {
+        var btn = document.getElementById('btnDownloadExcel');
+        var originalBtnText = btn ? btn.innerHTML : '📊 Download as Excel';
+        if (btn) {
+          btn.innerHTML = '⏳ Generating Excel...';
+          btn.disabled = true;
+        }
+
+        var data = d || {};
+        var cleanName = (data.name || 'Customer').replace(/[^a-zA-Z0-9_-]/g, '_').replace(/_+/g, '_');
+        var now = new Date();
+        var dateStr = String(now.getDate()).padStart(2, '0') + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + now.getFullYear();
+        var invoiceDate = data.date || (String(now.getDate()).padStart(2, '0') + '/' + String(now.getMonth() + 1).padStart(2, '0') + '/' + now.getFullYear());
+        var filename = 'JVL-Estimation-' + cleanName + '-' + dateStr + '.xlsx';
+
+        var calcBase = data.baseCost || 0;
+        var calcMat = data.matCost || 0;
+        var calcAddons = data.addonsCost || 0;
+        var calcMin = data.minRange || 0;
+        var calcMax = data.maxRange || 0;
+        var totalAmount = data.totalAmount || (calcBase + calcMat + calcAddons);
+        var estRef = data.estRef || 'JVL-EST-0000';
+        var servicesText = data.service || 'Interiors & Windows';
+
+        if (typeof XLSX !== 'undefined') {
+          try {
+            var wsData = [
+              ['JVL INTERIORS & WINDOWS — ESTIMATION INVOICE'],
+              ['Your Perfect Choice of Interiors | Dindigul, Tamil Nadu'],
+              ['Phone: +91 81898 93526 | Alternate: 88387 13630'],
+              ['Address: 3/8, Lakshmi Devi complex, Kullanampatti, Natham main road, Dindigul'],
+              [''],
+              ['INVOICE DETAILS', '', '', 'BUYER DETAILS', ''],
+              ['P.I. Number:', estRef, '', 'Customer Name:', data.name || ''],
+              ['Date:', invoiceDate, '', 'Phone Number:', data.phone || ''],
+              ['Services:', servicesText, '', 'City / Location:', data.city || ''],
+              ['Preferred Time:', data.time || '', '', '', ''],
+              [''],
+              ['Sl. No', 'Product / Item Description', 'Quantity / Area (Sq.ft)', 'Unit Price', 'Amount (Rs.)'],
+              [1, data.baseDesc || 'Base Configuration', data.size || '-', 'As per spec', calcBase],
+              [2, data.matDesc || 'Material Selection', '-', 'As per spec', calcMat]
+            ];
+
+            var slNo = 3;
+            if (calcAddons > 0) {
+              wsData.push([slNo++, 'Add-ons: ' + (data.addonsDesc || 'None'), '-', 'As per spec', calcAddons]);
+            }
+
+            var subtotal = data.subtotal || (calcBase + calcMat + calcAddons);
+            var taxAmount = data.taxAmount || Math.round(subtotal * 0.18);
+            var totalWithTax = data.totalAmountWithTax || (subtotal + taxAmount);
+
+            wsData.push(
+              ['', '', '', '', ''],
+              ['', '', '', 'Subtotal Amount (Excl. Tax):', subtotal],
+              ['', '', '', 'GST Tax Amount (18%):', taxAmount],
+              ['', '', '', 'Total Estimated Amount (Incl. 18% Tax):', totalWithTax],
+              ['', '', '', 'Indicative Budget Range:', formatCurrencyOnly(calcMin) + ' - ' + formatCurrencyOnly(calcMax)],
+              [''],
+              ['TERMS AND CONDITIONS:'],
+              ['1. This estimation report is generated automatically based on user choices and sizes and is strictly indicative.'],
+              ['2. 75% advance along with order and 25% on delivery of material at site before installation.'],
+              ['3. Validation of quote 30 days only.'],
+              ['4. Total execution of project should be completed within 14 days of advance payment received.'],
+              ['5. Final execution pricing is confirmed after a free home visit. No hidden charges.']
+            );
+
+            var ws = XLSX.utils.aoa_to_sheet(wsData);
+            ws['!cols'] = [
+              { wch: 10 },
+              { wch: 45 },
+              { wch: 25 },
+              { wch: 20 },
+              { wch: 20 }
+            ];
+
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Estimation');
+            XLSX.writeFile(wb, filename);
+
+            if (btn) {
+              btn.innerHTML = '✓ Excel Downloaded';
+              btn.disabled = false;
+              setTimeout(function () { btn.innerHTML = originalBtnText; }, 3000);
+            }
+            return;
+          } catch (ex) {
+            console.error('XLSX error:', ex);
+          }
+        }
+
+        // Fallback CSV
+        var csvContent = 'data:text/csv;charset=utf-8,\uFEFF' +
+          'JVL INTERIORS & WINDOWS - ESTIMATION INVOICE\n' +
+          'Ref: ' + estRef + ',Date: ' + invoiceDate + '\n' +
+          'Customer: ' + (data.name || '') + ',Phone: ' + (data.phone || '') + ',City: ' + (data.city || '') + '\n\n' +
+          'Sl. No,Product Description,Quantity (Sq.ft),Unit Price,Amount (Rs.)\n' +
+          '1,"' + (data.baseDesc || '') + '","' + (data.size || '-') + '",As per spec,' + calcBase + '\n' +
+          '2,"' + (data.matDesc || '') + '",-,As per spec,' + calcMat + '\n';
+        if (calcAddons > 0) {
+          csvContent += '3,"Add-ons: ' + (data.addonsDesc || '') + '",-,As per spec,' + calcAddons + '\n';
+        }
+        csvContent += ',,,Total Estimated Amount,' + totalAmount + '\n' +
+          ',,,Indicative Range,"' + formatCurrencyOnly(calcMin) + ' - ' + formatCurrencyOnly(calcMax) + '"\n';
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', filename.replace('.xlsx', '.csv'));
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        if (btn) {
+          btn.innerHTML = '✓ CSV Downloaded';
+          btn.disabled = false;
+          setTimeout(function () { btn.innerHTML = originalBtnText; }, 3000);
+        }
+      };
+
+    })();
+  </script>
+</body>
+
+</html>

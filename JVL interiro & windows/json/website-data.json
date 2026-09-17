@@ -1,0 +1,159 @@
+{
+  "businessIdentity": {
+    "businessName": "JVL Interiors & Windows",
+    "tagline": "Your Perfect Choice of Interiors",
+    "subTagline": "Dindigul's Premium Interior Studio",
+    "proprietor": "Mr. Ajith Kumar G",
+    "title": "Founder & Proprietor",
+    "address": "3/8, Lakshmi Devi complex, Kullanampatti, Natham main road, Near SKB petrol bunk, Dindigul.",
+    "secondaryLocation": "Natham Rd, near indian oil bunk, Kaveri Nagar, Dindigul, Tamil Nadu 624003",
+    "location": "Dindigul, Tamil Nadu, India",
+    "phone": "+91 81898 93526",
+    "whatsapp": "+91 81898 93526",
+    "alternatePhone": "+91 88387 13630",
+    "googleMaps": "https://maps.app.goo.gl/pZhzmquLpWoRmkpv5?g_st=aw",
+    "workingHours": "Monday – Saturday: 9:00 AM – 6:00 PM",
+    "sunday": "Closed",
+    "website": "https://jvl-interiors-and-windows.netlify.app/",
+    "stats": {
+      "projectsCompleted": "500+",
+      "yearsExperience": "10+",
+      "happyFamilies": "200+",
+      "onTimeDelivery": "100%"
+    }
+  },
+  "websiteBlueprint": {
+    "title": "JVL Interiors & Windows Architectural Blueprint",
+    "technologyStack": {
+      "core": "HTML5, Vanilla JavaScript (ES6+), Modern CSS3",
+      "designSystem": "Flexbox, CSS Grid, Glassmorphism, Responsive Media Queries",
+      "fontEngine": "Google Fonts (Inter, Outfit, Cormorant Garamond, Calibri)",
+      "pdfGenerator": "html2pdf.js (html2canvas + jsPDF client-side engine)",
+      "excelExport": "SheetJS (xlsx.full.min.js client-side spreadsheet engine)",
+      "storageAPI": "Web Storage API (sessionStorage transient state payload transfer)",
+      "iconography": "SVG Vector Graphics & Custom High-Res PNG Badges"
+    },
+    "pagesMap": [
+      {
+        "filename": "index.html",
+        "title": "Main Web Application",
+        "sections": [
+          "Top Tamil Incantation Notice Banner",
+          "Sticky Navigation Header with Top-Left Stacked Logo (Icon top + Title bottom)",
+          "Hero Banner Slider",
+          "About Us & Founder Profile (Mr. Ajith Kumar G)",
+          "What We Offer (5 Core Services with Starting Prices)",
+          "Why Choose JVL (6 Key Value Pillars)",
+          "Portfolio & Projects Gallery",
+          "4-Step Working Process",
+          "Interactive Cost Estimation Wizard",
+          "Get Your Quotation Form Modal",
+          "In-page Invoice Previews",
+          "JVL Chats AI Assistant Widget",
+          "Footer with Location, Map link & Business Hours"
+        ]
+      },
+      {
+        "filename": "invoice.html",
+        "title": "Standalone Performa Quotation Invoice",
+        "features": [
+          "Generates printable & downloadable formal Quotation Invoices (JVL-YEAR-XXXX)",
+          "Displays Subtotal (Excl. Tax), 18% GST Tax Amount, and Total Amount (Incl. Tax)",
+          "Responsive Mobile Totals Box (.q-mobile-totals-box) for side-by-side horizontal view",
+          "Client-side PDF Download and WhatsApp appointment booking integration"
+        ]
+      },
+      {
+        "filename": "estimation-invoice.html",
+        "title": "Standalone Performa Estimation Report & Invoice",
+        "features": [
+          "Generates detailed cost estimation reports (JVL-EST-YEAR-XXXX)",
+          "Displays Base Cost, Material Premium, Add-ons, Subtotal (Excl. Tax), 18% GST Tax Amount, and Total Amount (Incl. Tax)",
+          "Indicative Budget Range styled in custom 'Calibri' typography",
+          "Responsive Mobile Totals Box (.est-mobile-totals-box) for side-by-side horizontal view",
+          "PDF Download, Excel Spreadsheet (.xlsx) export, and WhatsApp consultation trigger"
+        ]
+      }
+    ]
+  },
+  "calculationEngine": {
+    "estimationLogic": {
+      "baseCost": "Calculated by Area (sqft) multiplied by base service rates.",
+      "materialPremium": "Material selection multiplier (Laminate baseline, Acrylic/Teak premium).",
+      "addons": "Flat fee additions for insulation, acoustic proofing, smart locks.",
+      "subtotal": "Subtotal (Actual Price Excl. Tax) = Base Cost + Material Premium + Addons",
+      "gstTax": "GST Tax Amount (18%) = Math.round(Subtotal * 0.18)",
+      "totalWithTax": "Total Amount (Incl. 18% Tax) = Subtotal + GST Tax Amount",
+      "indicativeRange": "Minimum = Total Amount | Maximum = Math.round(Total Amount * 1.15) (Rendered in Calibri font)"
+    },
+    "taxRules": {
+      "rate": "18% GST",
+      "displayMode": "Dual amount display: Actual Subtotal before tax AND Total Amount including 18% GST tax."
+    }
+  },
+  "services": [
+    {
+      "name": "Interior Work",
+      "startingPrice": "₹450 / sq.ft onwards*",
+      "description": "End-to-end interior solutions tailored to your space, style, and budget."
+    },
+    {
+      "name": "uPVC Windows",
+      "startingPrice": "₹300 / sq.ft onwards*",
+      "description": "Premium uPVC sliding & casement windows."
+    },
+    {
+      "name": "Mosquito Windows",
+      "startingPrice": "₹160 / sq.ft onwards*",
+      "description": "Durable mosquito mesh window systems."
+    },
+    {
+      "name": "System Windows",
+      "startingPrice": "₹1,200 / sq.ft onwards*",
+      "description": "High-performance architectural system windows."
+    },
+    {
+      "name": "PVC Doors",
+      "startingPrice": "₹2,400 / piece onwards*",
+      "description": "Heavy-duty, waterproof PVC doors."
+    },
+    {
+      "name": "Partition Works",
+      "startingPrice": "₹350 / sq.ft onwards*",
+      "description": "Modern glass & aluminium office/home partitions."
+    },
+    {
+      "name": "Modular Kitchen",
+      "startingPrice": "₹450 / sq.ft onwards*",
+      "description": "Custom-designed modular kitchens & finishes."
+    },
+    {
+      "name": "Cupboard Works",
+      "startingPrice": "₹350 / sq.ft onwards*",
+      "description": "Custom wardrobes, cabinets & storage solutions."
+    },
+    {
+      "name": "False Ceiling",
+      "startingPrice": "₹75 / sq.ft onwards*",
+      "description": "Gypsum, POP & LED false ceiling works."
+    }
+  ],
+  "whyChooseUs": [
+    "Custom Designs tailored to space, style, and budget",
+    "Expert Installation by trained craftsmen with precise execution",
+    "On-Time Delivery commitment honored always",
+    "Transparent Pricing with clear written quotes and no hidden charges",
+    "Quality Guarantee with post-installation support included",
+    "Dedicated Support with a single point of contact from design to handover"
+  ],
+  "termsAndConditions": [
+    "75% advance along with order confirmation and 25% on delivery of material at site before installation.",
+    "Validation of quotation is strictly 30 days.",
+    "Total execution of project completed within 14 days of advance payment receipt.",
+    "18% GST extra / itemized in total calculation."
+  ],
+  "chatbotRules": {
+    "scopeRestriction": "The chatbot can ONLY answer questions related to JVL Interiors & Windows and its website.",
+    "unrelatedQueryResponse": "Sorry, I can only answer questions related to JVL Interiors & Windows."
+  }
+}

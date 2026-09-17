@@ -1,0 +1,201 @@
+================================================================================
+           JVL INTERIORS & WINDOWS — WEBSITE BLUEPRINT & FULL TECHNICAL REPORT
+================================================================================
+Document Type    : System Architecture & Functional Blueprint Report
+Business Name    : JVL Interiors & Windows
+Tagline          : Your Perfect Choice of Interiors
+Founder & Owner  : Mr. Ajith Kumar G (Founder & Proprietor)
+Primary Address  : 3/8, Lakshmi Devi Complex, Kullanampatti, Natham Main Road, 
+                   Near SKB Petrol Bunk, Dindigul, Tamil Nadu, India.
+Secondary Loc.   : Natham Rd, Near Indian Oil Bunk, Kaveri Nagar, Dindigul, TN 624003.
+Contact Phone    : +91 81898 93526 / +91 88387 13630
+WhatsApp Contact : +91 81898 93526
+Google Maps      : https://maps.app.goo.gl/pZhzmquLpWoRmkpv5?g_st=aw
+Official Website : https://jvl-interiors-and-windows.netlify.app/
+Working Hours    : Monday – Saturday: 9:00 AM – 6:00 PM | Sunday: Closed
+Report Generated : August 2026
+================================================================================
+
+--------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY & BUSINESS IDENTITY
+--------------------------------------------------------------------------------
+JVL Interiors & Windows is a premier interior design, custom furniture, modular 
+kitchen, and aluminium/UPVC window fabrication firm located in Dindigul, Tamil Nadu. 
+Founded with over a decade of hands-on expertise by Mr. Ajith Kumar G, the company 
+brings metropolis-grade craftsmanship and transparent pricing to residential, 
+commercial, and industrial spaces across Tamil Nadu.
+
+Key Accomplishments & Stats:
+- 500+ Projects Successfully Completed
+- 10+ Years of Craftsmanship Experience
+- 200+ Happy Families Served
+- 100% On-Time Delivery Guarantee
+
+--------------------------------------------------------------------------------
+2. SYSTEM ARCHITECTURE & TECHNOLOGY STACK
+--------------------------------------------------------------------------------
+The website is engineered as a high-performance, fully client-side single page 
+application (SPA) augmented with standalone document generation micro-pages.
+
+Frontend Foundation:
+- Language Framework   : Vanilla HTML5 & ES6 JavaScript (Zero heavy framework bloat)
+- Design & Styling     : Modern Modular CSS3 (Flexbox, CSS Grid, Glassmorphism, CSS Custom Properties)
+- Font Engine          : Google Fonts ('Inter', 'Outfit', 'Cormorant Garamond', 'Calibri')
+
+Libraries & Dependencies:
+- Document PDF Engine  : html2pdf.js (html2canvas + jsPDF integration for client-side PDF rendering)
+- Data Export Engine   : SheetJS (xlsx.full.min.js for direct Excel spreadsheet export)
+- Iconography          : SVG Vector Graphics + Custom High-Res PNG Badges
+- Persistence Layer    : Web Storage API (sessionStorage for transient state transfer)
+
+--------------------------------------------------------------------------------
+3. WEBSITE STRUCTURE & PAGE MAP
+--------------------------------------------------------------------------------
+The application consists of three primary document entry points:
+
+A. Main Web Application (`index.html`)
+   - Header Navigation Bar: Stacking brand logo badge (Icon top + Title bottom), navigation links, phone CTA.
+   - Top Notice Banner: Traditional Tamil auspicious invocation ("ஸ்ரீ மது வீரசின்னம்மாள் துணை") + contact numbers.
+   - Hero Section: Dynamic high-res slider featuring modular kitchens, cabinets, and modern living spaces.
+   - About Us Section: Founder profile, company background, and commitment statements.
+   - Services Catalog: 6 core service cards with starting prices, visual badges, and action triggers.
+   - Why Choose JVL Section: Value propositions (Custom Designs, Expert Execution, On-Time Guarantee, Transparent Rates).
+   - Portfolio / Projects Gallery: Interactive tabbed filter showcasing interior & window projects.
+   - Working Process: 4-step workflow (Consultation -> 3D Design -> Fabrication -> Flawless Handover).
+   - Testimonials: Verified customer reviews and ratings.
+   - "Get Your Estimation" Wizard: Multi-step interactive cost calculation engine.
+   - "Get Your Quotation" Modal: Instant quotation request form.
+   - Integrated Chatbot ("JVL Chats"): Floating AI assistant widget on bottom-right corner.
+   - Footer: Address, contact points, working hours, direct map link, copyright notices.
+
+B. Standalone Quotation Performa Invoice (`invoice.html`)
+   - Purpose: Generates printable & downloadable formal Quotation Invoices (`JVL-YEAR-XXXX`).
+   - Header: Stacking company logo, registration details, tax note, customer info.
+   - Line Items: Itemized service breakdown, quantity, unit price, subtotal (excl. tax).
+   - Tax Breakdown: Explicit 18% GST tax amount calculation + Total Amount (incl. tax).
+   - Mobile View: Responsive horizontal summary totals card (`.q-mobile-totals-box`).
+   - Action Bar: Direct PDF Download button + WhatsApp Appointment Booking button.
+
+C. Standalone Estimation Performa Invoice (`estimation-invoice.html`)
+   - Purpose: Generates detailed cost estimation reports (`JVL-EST-YEAR-XXXX`).
+   - Breakdown Table: Base Cost, Material Premium, Selected Add-ons, Subtotal (excl. tax), 18% GST, Total Amount (incl. tax).
+   - Indicative Budget Range: Rendered in custom 'Calibri' typography.
+   - Mobile View: Responsive horizontal summary totals card (`.est-mobile-totals-box`).
+   - Action Bar: PDF Download button + Excel (.xlsx) Spreadsheet Export button + WhatsApp consultation trigger.
+
+--------------------------------------------------------------------------------
+4. SERVICES & PRICING MATRIX
+--------------------------------------------------------------------------------
++--------------------------+----------------+-------------------------------------------------------------+
+| Service Name             | Starting Price | Key Features & Inclusions                                   |
+| Interior Work            | ₹1.5 Lakhs*    | Complete living space design, wardrobes, TV units, decor.   |
+| System Window            | ₹450 / sqft*   | Sliding, casement, UPVC & multi-chamber system profiles.    |
+| Partition Works          | ₹600 / sqft*   | Toughened glass partitions, acoustic dividers, frame panels.|
+| Modular Kitchen          | ₹85,000*       | L-shape, U-shape, parallel layouts, acrylic/laminate finish.|
+| False Ceiling & Lighting | ₹55 / sqft*    | Gypsum, POP, grid ceilings, ambient LED strip lighting.     |
++--------------------------+----------------+-------------------------------------------------------------+
+* Indicative starting prices. Final pricing confirmed after a free home/site inspection. 18% GST extra.
+
+--------------------------------------------------------------------------------
+5. INTERACTIVE ENGINE & ALGORITHMIC SPECIFICATIONS
+--------------------------------------------------------------------------------
+A. "Get Your Estimation" Calculation Logic:
+   1. Base Cost Calculation (Area Sqft * Base Rate):
+      - Interior Work: 1 BHK (600 sqft), 2 BHK (900 sqft), 3 BHK (1200 sqft), 4 BHK+ (1600 sqft).
+      - Modular Kitchen: L-Shape (100 sqft), U-Shape (130 sqft), Straight (80 sqft), Parallel (120 sqft).
+      - System Windows / Partition Works: Window Count * Avg Size (default 20 sqft).
+      - False Ceiling: Room area selection (minimum 50 sqft).
+   2. Material Premium:
+      - Laminate / Standard: Baseline (+0%)
+      - Acrylic / Teak / Premium: Multiplier applied (+15% to +35%)
+   3. Add-on Services:
+      - Lightning Protection, Thermal Insulation, Acoustic Proofing, Smart Locks (Flat fee increments).
+   4. Tax & Range Calculations:
+      - Subtotal (Actual Price Excl. Tax) = Base Cost + Material Premium + Add-ons
+      - GST Tax Amount (18%) = Math.round(Subtotal * 0.18)
+      - Total Amount (Incl. 18% Tax) = Subtotal + GST Tax Amount
+      - Indicative Range Minimum = Total Amount
+      - Indicative Range Maximum = Math.round(Total Amount * 1.15)
+   5. Display Typography:
+      - Estimated Cost Range numbers rendered in 'Calibri', 'Inter', sans-serif.
+
+B. "Get Your Quotation" Engine:
+   - Captures: Full Name, Phone, Email, Selected Service, City / Area.
+   - Reference Generator: `JVL-YYYY-XXXX` (e.g., JVL-2026-4892).
+   - Data Transfer: Serializes payload into `sessionStorage.jvl_quotation_data`.
+   - Output: Automatically opens `invoice.html` in new tab or fallback in-page preview.
+
+--------------------------------------------------------------------------------
+6. "JVL CHATS" AI / RULE-BASED ASSISTANT
+--------------------------------------------------------------------------------
+The integrated chatbot (`chatbot.js` & `css/chat.css`) acts as a 24/7 automated sales assistant.
+
+Core Capabilities:
+- Natural Language Intent Triggering: Supports greetings, service queries, pricing lookups, hours, location, contact.
+- Business Boundary Guardrail: Rejects unrelated questions with polite domain-specific scope limitation:
+  "Sorry, I can only answer questions related to JVL Interiors & Windows."
+- Automatic Booking Flow:
+  1. Collects Name -> 2. Email -> 3. Phone -> 4. City/Area -> 5. Service Type
+  2. Generates booking summary + one-click auto-forwarding to WhatsApp (+91 81898 93526).
+- Quotation Trigger Flow: Guides users directly to the estimation & quotation tools.
+
+--------------------------------------------------------------------------------
+7. RESPONSIVE DESIGN & MOBILE LAYOUT STRATEGY
+--------------------------------------------------------------------------------
+Design Aesthetic:
+- Primary Palette: Royal Blue (`#0d3a94`), Deep Navy (`#0d3b8e`), Forest Green (`#1b4332`), Warm Accent Gold (`#d9a05b`).
+- Card Effects: Glassmorphism, smooth hover elevation, subtle micro-animations.
+- Logo Layout: Top-left header logo badge features the JVL green roof mark on top with "JVL INTERIORS & WINDOWS" title directly stacked below it.
+
+Mobile Optimization Breakdown (Max Width 600px):
+- Compact Layout Scaling: Padding and margins reduced; font sizes scaled to 10px-12px for 100% viewport fit.
+- Horizontal Totals Box (`.q-mobile-totals-box` / `.est-mobile-totals-box`):
+  - Hides cramped table footer rows on small screens.
+  - Displays a clean horizontal card below the items table containing:
+    [ SUBTOTAL (EXCL. TAX) ]   |   [ 18% GST TAX ]   |   [ TOTAL (INCL. TAX) ]
+  - Features side-by-side flex layout with vertical line dividers for optimal legibility.
+
+--------------------------------------------------------------------------------
+8. TERMS, CONDITIONS & BUSINESS POLICIES
+--------------------------------------------------------------------------------
+- Payment Terms      : 75% advance along with order confirmation; 25% balance on delivery of material at site prior to installation.
+- Quotation Validity : All quotes valid for 30 calendar days from issue date.
+- Execution Timeline : Complete project execution target within 14 days of advance payment receipt.
+- Tax Policy         : 18% GST extra / clearly itemized in invoice total.
+- Guarantee Policy   : Premium materials with post-installation support included.
+
+--------------------------------------------------------------------------------
+9. COMPLETE FILE & ASSET DIRECTORY INDEX
+--------------------------------------------------------------------------------
+Root Directory (`e:\JVL interiro & windows\`):
+- `index.html`               : Main Single Page Web Application (HTML5 markup & inline scripts)
+- `invoice.html`             : Standalone Performa Quotation Invoice Template
+- `estimation-invoice.html`  : Standalone Estimation Invoice & Report Template
+- `chatbot.js`               : Chatbot logic & message response engine
+- `logo.png`                 : Official high-resolution stacked logo badge (Roof icon top + Title bottom)
+- `logo.jpg`                 : Alternate logo graphic asset
+- `hero-bg.png`              : Hero banner background visual
+- `hero-kitchen.png`         : High-definition modular kitchen visual
+- `hero-cabinet.png`         : High-definition interior wardrobe/cabinet visual
+- `hero-open-kitchen-4k.png` : 4K resolution open kitchen design banner
+- `founder-photo.jpg`        : Profile photograph of Mr. Ajith Kumar G
+- `interior-work-bg.png`     : Category background image for Interior Work
+- `modular-kitchen-bg.png`   : Category background image for Modular Kitchen
+- `aluminium-windows-bg.png` : Category background image for System Windows
+- `doors-partitions-bg.png`  : Category background image for Partition Works
+- `false-ceiling-bg.jpg`     : Category background image for False Ceiling
+- `booking-consultation-bg.png`: Banner asset for consultation booking section
+- `proposal-steps.png`       : Graphic breakdown of proposal workflow
+- `whatsapp-icon.png`        : Floating WhatsApp contact icon
+- `invoice-logo-left.svg`    : Vector SVG logo fallback mark
+- `invoice-logo-right.svg`   : Vector SVG badge fallback mark
+- `AGENTS.md`                : Primary knowledge base & business identity rules
+
+CSS Subdirectory (`css/`):
+- `main.css`                 : Master design system, color variables, layout grid, typography, navigation, responsive rules.
+- `quotation.css`            : Specialized document layout styles for invoices, printable templates, and mobile totals cards.
+- `chat.css`                 : Chatbot UI styling, animated bubble transitions, message avatar containers, responsive drawer.
+
+================================================================================
+                           END OF BLUEPRINT & FULL REPORT
+================================================================================

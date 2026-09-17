@@ -1,0 +1,408 @@
+/* ═══ JVL AI CHAT WIDGET ═══ */
+@keyframes jvlChatPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  70% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+#jvlChatToggle {
+  position: fixed;
+  bottom: max(28px, env(safe-area-inset-bottom, 0px));
+  right: max(28px, env(safe-area-inset-right, 0px));
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C9A84C, #8B6914);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+  box-shadow: 0 6px 24px rgba(201, 168, 76, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#jvlChatToggle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.45);
+  animation: jvlChatPulse 2.4s ease-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#jvlChatToggle.active::before {
+  animation: none;
+}
+
+#jvlChatToggle:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 8px 30px rgba(183, 152, 68, 0.7);
+}
+
+#jvlChatToggle svg {
+  display: block;
+}
+
+#jvlChatToggle .jvl-chat-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #25D366;
+  border: 2px solid #0A0A0A;
+}
+
+#jvlChatPanel {
+  position: fixed;
+  top: auto;
+  right: max(24px, env(safe-area-inset-right, 0px));
+  bottom: max(92px, calc(76px + env(safe-area-inset-bottom, 0px)));
+  left: auto;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  height: 520px;
+  max-height: min(540px, calc(100vh - 120px));
+  max-height: min(540px, calc(100dvh - 120px));
+  background: #111827;
+  border: 1.5px solid rgba(201, 168, 76, 0.45);
+  border-top: 4px solid #C9A84C;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1005;
+  will-change: transform;
+  isolation: isolate;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+#jvlChatPanel.open {
+  display: flex;
+}
+
+#jvlChatHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #C9A84C, #8B6914);
+  flex-shrink: 0;
+}
+
+#jvlChatHeader .jvl-chat-title {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+}
+
+#jvlChatHeader .jvl-chat-sub {
+  display: block;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.jvl-chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+#jvlChatRefresh,
+#jvlChatClose {
+  background: none;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+#jvlChatRefresh:hover,
+#jvlChatClose:hover {
+  background: none;
+  background-color: transparent;
+  opacity: 0.75;
+}
+
+#jvlChatRefresh:active,
+#jvlChatClose:active {
+  background: none;
+  background-color: transparent;
+  transform: scale(0.92);
+}
+
+#jvlChatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.jvl-msg {
+  max-width: 85%;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  border-radius: 12px;
+  word-wrap: break-word;
+}
+
+.jvl-msg-bot {
+  background: #1A1F2E;
+  color: #E8E8E8;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.jvl-msg-user {
+  background: #C9A84C;
+  color: #000;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.jvl-msg-typing {
+  background: #1A1F2E;
+  color: #94A3B8;
+  align-self: flex-start;
+  font-style: italic;
+  font-size: 14px;
+  border-bottom-left-radius: 4px;
+}
+
+#jvlChatInputRow {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid rgba(192, 192, 192, 0.1);
+  background: #0F1520;
+  flex-shrink: 0;
+}
+
+#jvlChatInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(192, 192, 192, 0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#jvlChatInput:focus {
+  border-color: #C9A84C;
+}
+
+#jvlChatInput::placeholder {
+  color: #94A3B8;
+}
+
+#jvlChatSend {
+  background: #C9A84C;
+  border: none;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+#jvlChatSend:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.jvl-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 12px;
+  align-self: flex-start;
+}
+
+.jvl-quick-btn {
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  color: #C9A84C;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.jvl-quick-btn:hover {
+  border-color: #C9A84C;
+  background: rgba(201, 168, 76, 0.1);
+}
+
+.jvl-booking-card {
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #E8E8E8;
+  align-self: flex-start;
+  max-width: 85%;
+}
+
+.jvl-booking-card strong {
+  color: #C9A84C;
+  font-weight: 600;
+}
+
+.jvl-booking-card .booking-ref {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 6px;
+}
+
+.jvl-chat-footer {
+  text-align: center;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: #0F1520;
+  padding: 0 12px 10px;
+  flex-shrink: 0;
+}
+
+.jvl-chat-footer a {
+  color: #C9A84C;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+.jvl-chat-footer a:hover {
+  color: #E8C96A;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  #jvlChatToggle {
+    width: 52px;
+    height: 52px;
+    right: max(20px, env(safe-area-inset-right, 0px));
+    bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  }
+
+  #jvlChatToggle svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  #jvlChatPanel {
+    top: max(60px, calc(50px + env(safe-area-inset-top, 0px)));
+    right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: max(84px, calc(70px + env(safe-area-inset-bottom, 0px)));
+    width: 340px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 144px);
+    max-height: calc(100dvh - 144px);
+    border-radius: 14px;
+  }
+
+  #jvlChatHeader {
+    padding: 12px 16px;
+  }
+
+  #jvlChatHeader .jvl-chat-title {
+    font-size: 16px;
+  }
+
+  .jvl-chat-actions {
+    right: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #jvlChatPanel {
+    top: max(12px, env(safe-area-inset-top, 0px));
+    right: max(12px, env(safe-area-inset-right, 0px));
+    left: max(12px, env(safe-area-inset-left, 0px));
+    bottom: max(80px, calc(65px + env(safe-area-inset-bottom, 0px)));
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - 92px);
+    max-height: calc(100dvh - 92px);
+  }
+
+  #jvlChatToggle {
+    right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    width: 48px;
+    height: 48px;
+  }
+
+  #jvlChatToggle svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  #jvlChatInput {
+    font-size: 16px;
+  }
+}

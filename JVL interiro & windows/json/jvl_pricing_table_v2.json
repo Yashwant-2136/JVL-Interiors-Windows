@@ -1,0 +1,223 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "description": "JVL Interiors & Windows — Centralized Pricing Table v2. Single source of truth for all price calculations across Homepage Cards, Quotation Form, and Estimation Wizard.",
+    "last_updated": "2026-09-07",
+    "gst_rate": 0.18,
+    "indicative_range_multiplier": 1.15,
+    "notes": [
+      "All prices are in INR (₹).",
+      "base_rate_per_sqft is the starting rate used for Quick Quotation (base × area).",
+      "Estimation Wizard applies type_multipliers, finish_tiers, and package_tiers on top of the base rate.",
+      "Aluminium Windows and Commercial Spaces are NOT part of this update and retain their existing logic."
+    ]
+  },
+
+  "services": {
+    "Interior Work": {
+      "status": "updated",
+      "card_display_price": "Starting from ₹450/sq.ft*",
+      "base_rate_per_sqft": 450,
+      "unit": "sq.ft",
+      "minimum_price": 150000,
+      "bhk_area_mapping": {
+        "1 BHK": 600,
+        "2 BHK": 900,
+        "3 BHK": 1200,
+        "4 BHK+": 1600
+      },
+      "room_area_default_sqft": 250,
+      "minimum_area_sqft": 300,
+      "type_multipliers": {
+        "Full Home Interior": 1.0,
+        "Living Room Only": 0.3,
+        "Bedroom Only": 0.25,
+        "Kitchen + Dining": 0.35,
+        "Office / Commercial": 1.1
+      },
+      "finish_tiers": {
+        "Laminate (Standard)": 1.0,
+        "Acrylic": 1.3,
+        "PU Paint / Veneer": 1.6
+      },
+      "package_tiers": {
+        "Essential": 1.0,
+        "Premium": 1.25,
+        "Luxury": 1.5
+      },
+      "formula": "area = BHK mapping OR (selected_rooms × 250), min 300 sqft → base_cost = max(minimum_price, area × base_rate_per_sqft) → apply finish_tier multiplier → add add-ons → subtotal → +18% GST → total",
+      "quotation_rate_display": "₹450/sq.ft onwards"
+    },
+
+    "System Window": {
+      "status": "updated",
+      "card_display_price": "Starting from ₹1,200/sq.ft*",
+      "base_rate_per_sqft": 1200,
+      "unit": "sq.ft",
+      "minimum_price": 15000,
+      "type_multipliers": {
+        "Sliding Window": 1.0,
+        "Casement Window": 1.1,
+        "Fixed Glass Panel": 0.85,
+        "Bay / Arch Window": 1.3,
+        "Ventilator": 0.7
+      },
+      "finish_tiers": {
+        "Standard Aluminium": 1.0,
+        "Premium Aluminium": 1.3,
+        "UPVC (Sleek/Durable)": 1.5
+      },
+      "package_tiers": {
+        "Basic": 1.0,
+        "Weather-Sealed Pro": 1.2,
+        "Sound + Thermal Shield": 1.4
+      },
+      "formula": "area = window_count × avg_size_per_window_sqft, min 10 sqft → base_cost = max(minimum_price, area × base_rate_per_sqft) → apply finish_tier multiplier → add add-ons (glazing, mesh, locking) → subtotal → +18% GST → total",
+      "quotation_rate_display": "₹1,200/sq.ft onwards"
+    },
+
+    "Partition Works": {
+      "status": "updated",
+      "aliases": ["Doors & Partitions"],
+      "card_display_price": "Starting from ₹350/sq.ft*",
+      "base_rate_per_sqft": 350,
+      "unit": "sq.ft",
+      "minimum_price": 10000,
+      "type_multipliers": {
+        "Glass Partition": 1.0,
+        "Aluminium Door": 1.1,
+        "Wooden Flush Door": 0.9,
+        "Decorative Panel": 1.2,
+        "PVC Partition": 0.8
+      },
+      "finish_tiers": {
+        "Standard Aluminium": 1.0,
+        "Premium Aluminium": 1.3,
+        "UPVC (Sleek/Durable)": 1.5
+      },
+      "package_tiers": {
+        "Basic": 1.0,
+        "Acoustic": 1.25,
+        "Fire-Rated": 1.4
+      },
+      "formula": "area = unit_count × avg_size_per_unit_sqft, min 10 sqft → base_cost = max(minimum_price, area × base_rate_per_sqft) → apply finish_tier multiplier → add add-ons → subtotal → +18% GST → total",
+      "quotation_rate_display": "₹350/sq.ft onwards"
+    },
+
+    "Modular Kitchen": {
+      "status": "updated",
+      "card_display_price": "Starting from ₹450/sq.ft*",
+      "base_rate_per_sqft": 450,
+      "unit": "sq.ft",
+      "minimum_price": 85000,
+      "kitchen_shape_area_mapping": {
+        "Straight": 80,
+        "L-Shape": 100,
+        "Parallel": 120,
+        "U-Shape": 130,
+        "Island": 160
+      },
+      "minimum_area_sqft": 60,
+      "type_multipliers": {
+        "Straight Layout": 1.0,
+        "L-Shape Layout": 1.1,
+        "U-Shape Layout": 1.2,
+        "Parallel Layout": 1.1,
+        "Island Layout": 1.35
+      },
+      "finish_tiers": {
+        "Laminate (Standard)": 1.0,
+        "Acrylic": 1.3,
+        "PU Paint / Veneer": 1.6
+      },
+      "package_tiers": {
+        "Essential": 1.0,
+        "Premium": 1.25,
+        "Luxury": 1.5
+      },
+      "formula": "area = kitchen_shape_area_mapping[selected_shape], min 60 sqft → base_cost = max(minimum_price, area × base_rate_per_sqft) → apply finish_tier multiplier → add add-ons → subtotal → +18% GST → total",
+      "quotation_rate_display": "₹450/sq.ft onwards"
+    },
+
+    "False Ceiling & Lighting": {
+      "status": "updated",
+      "card_display_price": "Starting from ₹75/sq.ft*",
+      "base_rate_per_sqft": 75,
+      "unit": "sq.ft",
+      "minimum_price": 8000,
+      "minimum_area_sqft": 50,
+      "type_multipliers": {
+        "Gypsum Board": 1.0,
+        "POP (Plaster of Paris)": 0.9,
+        "Grid / T-Bar Ceiling": 0.85,
+        "Wooden Panel Ceiling": 1.4,
+        "Metal Strip Ceiling": 1.3
+      },
+      "finish_tiers": {
+        "Laminate (Standard)": 1.0,
+        "Acrylic": 1.3,
+        "PU Paint / Veneer": 1.6
+      },
+      "package_tiers": {
+        "Basic (Flat Ceiling)": 1.0,
+        "Designer (Multi-Level)": 1.3,
+        "Premium (Cove + LED)": 1.5
+      },
+      "formula": "area = sum of selected room sizes from checkboxes, min 50 sqft → base_cost = max(minimum_price, area × base_rate_per_sqft) → apply finish_tier multiplier → add add-ons (COB lights, cove profile, dimmers) → subtotal → +18% GST → total",
+      "quotation_rate_display": "₹75/sq.ft onwards"
+    }
+  },
+
+  "unchanged_services": {
+    "Aluminium Windows": {
+      "status": "unchanged",
+      "note": "Rates not included in this update. Existing calculation logic in the website is retained as-is."
+    },
+    "Commercial Spaces": {
+      "status": "unchanged",
+      "note": "Rates not included in this update. Existing calculation logic in the website is retained as-is."
+    }
+  },
+
+  "quotation_form_rates": {
+    "_description": "Rates used by the 'Get Your Free Quotation' quick form. Uses base_rate_per_sqft × user-entered area for a quick estimate.",
+    "Interior Work": { "price": 450, "unit": "1 sq.ft", "rate_display": "₹450/sq.ft onwards" },
+    "uPVC Windows": { "price": 300, "unit": "1 sq.ft", "rate_display": "₹300/sq.ft onwards" },
+    "Mosquito Windows": { "price": 160, "unit": "1 sq.ft", "rate_display": "₹160/sq.ft onwards" },
+    "System Windows": { "price": 1200, "unit": "1 sq.ft", "rate_display": "₹1,200/sq.ft onwards" },
+    "PVC Doors": { "price": 2400, "unit": "1 Piece", "rate_display": "₹2,400/piece onwards" },
+    "Partition Works": { "price": 350, "unit": "1 sq.ft", "rate_display": "₹350/sq.ft onwards" },
+    "Modular Kitchen": { "price": 450, "unit": "1 sq.ft", "rate_display": "₹450/sq.ft onwards" },
+    "Cupboard Works": { "price": 350, "unit": "1 sq.ft", "rate_display": "₹350/sq.ft onwards" },
+    "False Ceiling": { "price": 75, "unit": "1 sq.ft", "rate_display": "₹75/sq.ft onwards" },
+    "Others": { "price": 350, "unit": "1 sq.ft", "rate_display": "₹350/sq.ft onwards" }
+  },
+
+  "estimation_wizard_rates": {
+    "_description": "Base rates used by the Estimation Wizard's selectService() tile cards and recalculatePrice() function.",
+    "Interior Work": 450,
+    "System Window": 1200,
+    "Partition Works": 350,
+    "Doors & Partitions": 350,
+    "Modular Kitchen": 450,
+    "False Ceiling & Lighting": 75
+  },
+
+  "tax_engine": {
+    "gst_rate_percent": 18,
+    "gst_calculation": "Math.round(subtotal * 0.18)",
+    "total_formula": "subtotal + gst_tax_amount",
+    "indicative_range": {
+      "minimum": "total_amount",
+      "maximum": "Math.round(total_amount * 1.15)",
+      "font": "Calibri"
+    },
+    "display_rules": {
+      "subtotal_label": "Subtotal (Actual Price Excl. Tax)",
+      "gst_label": "GST Tax Amount (18%)",
+      "total_label": "Total Amount (Incl. 18% Tax)",
+      "mobile_totals_box": true,
+      "mobile_breakpoint": "600px"
+    }
+  }
+}
